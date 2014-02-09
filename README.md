@@ -1,4 +1,4 @@
-library
-=======
+EDD Code Snippet Library
+========================
 
-EDD code snippet library
+This is a repository of code snippets that help modify the default behavior of [Easy Digital Downloads](https://easydigitaldownloads.com).
