@@ -1,6 +1,6 @@
 #Contribute To EDD Code Snippet Library
 
-The EDD code snippet library is a community maintained repository and so contributions are always welcome.
+The EDD code snippet library is a community-maintained repository and so contributions are always welcome.
 
 ## Submitting a Snippet
 
