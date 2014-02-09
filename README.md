@@ -14,3 +14,5 @@ Please refer to the [Contributing guidelines](https://github.com/easydigitaldown
 ## Proposing a Snippet
 
 If there is a snippet you are unable to find and would like to propose get written, please open an [issue](https://github.com/easydigitaldownloads/library/issues) and describe your need.
+
+**Note**, this is not a tutorial archive. Please see the [tutorials section](https://easydigitaldownloads.com/docs/section/tutorials/) of the EDD website if you're looking for instructions on how to implement these snippets (and others).
