@@ -11,3 +11,4 @@ Guidelines for submission:
 - Each snippet should be placed in it's own file.
 - Each file should be named appropriately based on the purpose of the snippet.
 - Files should be placed in the appropriate category (folder). If no category exists, you may create one with your pull request.
+- All functions and classes should be prefixed with your own unique prefix, preferrably one that contains your initials followed by `_edd_`. For example: `pw_edd_{function name here}`.

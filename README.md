@@ -9,6 +9,8 @@ Snippets are organized into categories (folders) and each snippet is placed in i
 
 We welcome and encourage everyone to submit their code snippets. If you would like to submit your snippet, please [fork](https://github.com/easydigitaldownloads/library/fork) the repository and then create a [pull request](https://github.com/easydigitaldownloads/library/compare/).
 
+Please refer to the [Contributing guidelines](https://github.com/easydigitaldownloads/library/blob/master/CONTRIBUTING.md) before submitting your pull request.
+
 ## Proposing a Snippet
 
 If there is a snippet you are unable to find and would like to propose get written, please open an [issue](https://github.com/easydigitaldownloads/library/issues) and describe your need.
