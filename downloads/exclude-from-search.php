@@ -8,4 +8,4 @@ function sumobi_download_post_type_args( $download_args ) {
 
 	return $download_args;
 }
-add_action( 'edd_download_post_type_args', 'sumobi_download_post_type_args' );
+add_filter( 'edd_download_post_type_args', 'sumobi_download_post_type_args' );
