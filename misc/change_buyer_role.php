@@ -29,8 +29,6 @@ function ao_edd_run_when_purchase_complete( $payment_id, $new_status, $old_statu
         global $current_user;
         get_currentuserinfo($user_id);
         $user = new WP_User($user_info['id']);
-        // Delete role
-       $user->remove_role( 'subscriber' );
        // Add role
        $user->add_role( 'buyer' );
         }
