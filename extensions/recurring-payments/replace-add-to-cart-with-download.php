@@ -1,11 +1,18 @@
 <?php
 
-/* If the user has purcahsed the product already,
+/* If the user is recurring or has purcahsed the product already,
  * show a links to download each file associated with the product
  * instead of an Add To Cart Button
  */
-add_filter( 'edd_purchase_download_form', 'ck_edd_user_download_button', 10, 2 );
-function ck_edd_user_download_button( $purchase_form, $args ) {
+add_filter( 'edd_purchase_download_form', 'ck_edd_user_download_button_recurring', 10, 2 );
+function ck_edd_user_download_button_recurring( $purchase_form, $args ) {
+
+	if( ! class_exists( 'EDD_Recurring_Customer' ) )
+	    return $purchase_form;
+	
+	if( ! EDD_Recurring_Customer::is_active( get_current_user_id() ) )
+	    return $purchase_form;
+    
 	if ( !is_user_logged_in() )
 		return $purchase_form;
  
