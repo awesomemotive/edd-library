@@ -66,6 +66,7 @@ function emod_show_menu() {
 										<input type="checkbox" name="refunded"  > <?php _e( 'Refunded', 'edd' );?> &nbsp;&nbsp; <br />
 										<input type="checkbox" name="failed"    > <?php _e( 'Failed', 'edd' );?> &nbsp;&nbsp; <br />
 										<input type="checkbox" name="revoked"   > <?php _e( 'Revoked', 'edd' );?> &nbsp;&nbsp; <br />
+										<input type="checkbox" name="cancelled"   > <?php _e( 'Cancelled', 'edd' );?> &nbsp;&nbsp; <br />
 										<input type="checkbox" name="abandoned" > <?php _e( 'Abandoned', 'edd' );?> &nbsp;&nbsp;
                                 </tr>
                                     <tr valign="top">
@@ -102,6 +103,9 @@ function emod_show_menu() {
 		}
 		if ( isset( $_POST[ 'revoked' ] ) && $_POST[ 'revoked' ] == "on" ) {
 			$status[] = "revoked";
+		}
+		if ( isset( $_POST[ 'cancelled' ] ) && $_POST[ 'cancelled' ] == "on" ) {
+			$status[] = "cancelled";
 		}
 		if ( isset( $_POST[ 'abandoned' ] ) && $_POST[ 'abandoned' ] == "on" ) {
 			$status[] = "abandoned";
