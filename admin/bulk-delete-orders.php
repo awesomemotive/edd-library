@@ -26,68 +26,72 @@ function emod_show_menu() {
 		margin-top: 0px;
 	}
 	</style>
-    <div class="wrap">
-        <h2 style="display: run-in;"><?php _e( 'EDD Mass Order Deletion', 'edd' );?></h2><p><?php _e( 'The plugin allows one to mass delete EDD orders. Use with caution.', 'edd' );?></p>
-        <table class="form-table" style="margin-top: .5em" width="100%">
-            <tbody>
-                <tr>
-                    <td>
-                        <form method="post">
-                            <table class="widefat" style="padding: 10px;">
-                                <tr valign="top">
+	<div class="wrap">
+		<h2 style="display: run-in;"><?php _e( 'EDD Mass Order Deletion', 'edd' );?></h2><p><?php _e( 'The plugin allows one to mass delete EDD orders. Use with caution.', 'edd' );?></p>
+		<table class="form-table" style="margin-top: .5em" width="100%">
+			<tbody>
+				<tr>
+					<td>
+						<form method="post">
+							<table class="widefat" style="padding: 10px;">
+								<tr valign="top">
 									<th align="left"><?php _e( 'Delete all orders', 'edd' );?></th>
 									<td style="width: 40%;">
 										<h4><?php _e( 'Between (inclusive)', 'edd' );?></h4>
 										<?php _e( 'Start Year (XXXX format):', 'edd' );?> <input type="text" name="startyear" value="" size="10"> <br />
 										<?php _e( 'Start Month (XX format):', 'edd' );?>  <input type="text" name="startmonth" value="" size="10"> <br />
-										<?php _e( 'Start Day (XX format):', 'edd' );?>     <input type="text" name="startday" value="" size="10"> <br />
-										<?php _e( 'End Year (XXXX format):', 'edd' );?>    <input type="text" name="endyear" value="" size="10"> <br />
-										<?php _e( 'End Month (XX format):', 'edd' );?>     <input type="text" name="endmonth" value="" size="10"> <br />
+										<?php _e( 'Start Day (XX format):', 'edd' );?>	 <input type="text" name="startday" value="" size="10"> <br />
+										<?php _e( 'End Year (XXXX format):', 'edd' );?>	<input type="text" name="endyear" value="" size="10"> <br />
+										<?php _e( 'End Month (XX format):', 'edd' );?>	 <input type="text" name="endmonth" value="" size="10"> <br />
 										<?php _e( 'End Day (XX format):', 'edd' );?>  <input type="text" name="endday" value="" size="10">
 									</td>
-                                    <td style="width: 30%;">
+									<td style="width: 30%;">
 										<h4><?php _e( 'Older Than (inclusive)', 'edd' );?></h4>
 										<?php _e( 'Year (XXXX format):', 'edd' );?> <input type="text" name="year" value="" size="10"><br />
 										<?php _e( 'Month (XX format):', 'edd' );?><input type="text" name="month" value="" size="10"><br />
 										<?php _e( 'Day (XX format):', 'edd' );?> <input type="text" name="day" value="" size="10">
-                                    </td>
+									</td>
 									<td style="width: 30%;">
 										<h4><?php _e( 'Newer Than (inclusive)', 'edd' );?></h4>
 										<?php _e( 'Year (XXXX format):', 'edd' );?> <input type="text" name="newyear" value="" size="10"> <br />
 										<?php _e( 'Month (XX format):', 'edd' );?> <input type="text" name="newmonth" value="" size="10"> <br />
 										<?php _e( 'Day (XX format):', 'edd' );?> <input type="text" name="newday" value="" size="10">
-                                    </td>
+									</td>
 								</tr>
-                                <tr valign="top">
-                                    <th align="left"><?php _e( 'Order Status(es)', 'edd' );?></th>
-                                    <td align="left">
+								<tr valign="top">
+									<th align="left"><?php _e( 'Order Status(es)', 'edd' );?></th>
+									<td align="left">
 										<input type="checkbox" name="publish"   > <?php _e( 'Published/Completed', 'edd' );?> &nbsp;&nbsp; <br />
 										<input type="checkbox" name="pending"   > <?php _e( 'Pending', 'edd' );?> &nbsp;&nbsp; <br />
 										<input type="checkbox" name="refunded"  > <?php _e( 'Refunded', 'edd' );?> &nbsp;&nbsp; <br />
-										<input type="checkbox" name="failed"    > <?php _e( 'Failed', 'edd' );?> &nbsp;&nbsp; <br />
+										<input type="checkbox" name="failed"	> <?php _e( 'Failed', 'edd' );?> &nbsp;&nbsp; <br />
 										<input type="checkbox" name="revoked"   > <?php _e( 'Revoked', 'edd' );?> &nbsp;&nbsp; <br />
 										<input type="checkbox" name="cancelled"   > <?php _e( 'Cancelled', 'edd' );?> &nbsp;&nbsp; <br />
 										<input type="checkbox" name="abandoned" > <?php _e( 'Abandoned', 'edd' );?> &nbsp;&nbsp;
-                                </tr>
-                                    <tr valign="top">
-                                        <th align="left"><?php _e( 'Bypass trash', 'edd' );?></th>
-                                        <td align="left"><input type="checkbox" name="force_delete" checked> -
-                                            <?php _e( 'If checked, orders will be permanently deleted.', 'edd' );?>
+								</tr>
+									<tr valign="top">
+										<th align="left"><?php _e( 'Bypass trash', 'edd' );?></th>
+										<td align="left"><input type="checkbox" name="force_delete" checked> -
+											<?php _e( 'If checked, orders will be permanently deleted.', 'edd' );?>
 
-                                    </tr>
-                            </table>
-                            <br />
-                            <div align="center">
-                                <input type="submit" name="delete" class="button-primary"
-                                       value="<?php _e( 'Delete Orders', 'edd' );?>" />
-                            </div>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <?php
+									</tr>
+									<tr valign="top">
+										<th align="left"><?php _e( 'Delete associated log entries', 'edd' );?></th>
+										<td align="left"><input type="checkbox" name="delete_logs" checked>
+									</tr>
+							</table>
+							<br />
+							<div align="center">
+								<input type="submit" name="delete" class="button-primary"
+									   value="<?php _e( 'Delete Orders', 'edd' );?>" />
+							</div>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<?php
 	if ( isset( $_POST[ 'delete' ] ) ) {
 		$type   = array();
 		$status = array();
@@ -194,6 +198,10 @@ function emod_show_menu() {
 					echo "Deleted Order #" . $id . "<br />";
 				}
 				wp_delete_post( $id, @$_POST[ 'force_delete' ] == "on" );
+				if ( isset( $_POST['delete_logs'] ) ) {
+					$log_id = $wpdb->get_var( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_edd_log_payment_id' AND meta_value = $id" );
+					wp_delete_post( $log_id, true );
+				}
 			}
 			echo "Done!</div><br \>";
 			return;
