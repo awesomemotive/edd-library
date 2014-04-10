@@ -66,6 +66,7 @@ function emod_show_menu() {
 										<input type="checkbox" name="refunded"  > <?php _e( 'Refunded', 'edd' );?> &nbsp;&nbsp; <br />
 										<input type="checkbox" name="failed"    > <?php _e( 'Failed', 'edd' );?> &nbsp;&nbsp; <br />
 										<input type="checkbox" name="revoked"   > <?php _e( 'Revoked', 'edd' );?> &nbsp;&nbsp; <br />
+										<input type="checkbox" name="cancelled"   > <?php _e( 'Cancelled', 'edd' );?> &nbsp;&nbsp; <br />
 										<input type="checkbox" name="abandoned" > <?php _e( 'Abandoned', 'edd' );?> &nbsp;&nbsp;
                                 </tr>
                                     <tr valign="top">
@@ -73,6 +74,10 @@ function emod_show_menu() {
                                         <td align="left"><input type="checkbox" name="force_delete" checked> -
                                             <?php _e( 'If checked, orders will be permanently deleted.', 'edd' );?>
 
+                                    </tr>
+                                    <tr valign="top">
+                                        <th align="left"><?php _e( 'Delete associated log entries', 'edd' );?></th>
+                                        <td align="left"><input type="checkbox" name="delete_logs" checked>
                                     </tr>
                             </table>
                             <br />
@@ -102,6 +107,9 @@ function emod_show_menu() {
 		}
 		if ( isset( $_POST[ 'revoked' ] ) && $_POST[ 'revoked' ] == "on" ) {
 			$status[] = "revoked";
+		}
+		if ( isset( $_POST[ 'cancelled' ] ) && $_POST[ 'cancelled' ] == "on" ) {
+			$status[] = "cancelled";
 		}
 		if ( isset( $_POST[ 'abandoned' ] ) && $_POST[ 'abandoned' ] == "on" ) {
 			$status[] = "abandoned";
@@ -190,6 +198,10 @@ function emod_show_menu() {
 					echo "Deleted Order #" . $id . "<br />";
 				}
 				wp_delete_post( $id, @$_POST[ 'force_delete' ] == "on" );
+				if ( isset( $_POST['delete_logs'] ) ) {
+					$log_id = $wpdb->get_var( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_edd_log_payment_id' AND meta_value = $id" );
+					wp_delete_post( $log_id, true );
+				}
 			}
 			echo "Done!</div><br \>";
 			return;
