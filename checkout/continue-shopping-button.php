@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Continue Shopping Button
- * Description: Adds a continue shopping button to the left of the Update/Save Cart buttons on checkout
+ * Description: Adds a "Continue Shopping" button to the left of the Update/Save Cart buttons on checkout
  * Author: Chris Klosowski
  * Version: 1.0
  */
