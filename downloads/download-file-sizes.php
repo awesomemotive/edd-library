@@ -8,7 +8,6 @@
  Author URI: https://kungfugrep.com
  */
 
-add_action( 'edd_after_download_content', 'edd_ck_show_file_sizes', 10, 1 );
 function edd_ck_show_file_sizes( $post_id ) {
 	$files = edd_get_download_files( $post_id, null );
 	$decimals = 2;
@@ -23,3 +22,4 @@ function edd_ck_show_file_sizes( $post_id ) {
 	}
 	echo '</ul>';
 }
+add_action( 'edd_after_download_content', 'edd_ck_show_file_sizes', 10, 1 );
