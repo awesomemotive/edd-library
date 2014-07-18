@@ -5,7 +5,7 @@
  Description: After the download content, shows a list of the download files and their sizes
  Author: Chris Klosowski
  Version: 1.0
- Author URI: https://kungfugrep.com
+ Author URI: http://kungfugrep.com
  */
 
 function edd_ck_show_file_sizes( $post_id ) {
