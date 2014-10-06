@@ -10,7 +10,7 @@ function ck_edd_user_download_button_recurring( $purchase_form, $args ) {
 	if( ! class_exists( 'EDD_Recurring_Customer' ) )
 	    return $purchase_form;
 	
-	if( ! EDD_Recurring_Customer::is_active( get_current_user_id() ) )
+	if( ! EDD_Recurring_Customer::is_customer_active( get_current_user_id() ) )
 	    return $purchase_form;
     
 	if ( !is_user_logged_in() )
