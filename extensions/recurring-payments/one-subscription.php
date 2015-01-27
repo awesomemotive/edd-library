@@ -35,7 +35,7 @@ function pw_edd_recurring_limit_one_subscription( $valid_data, $post_data ) {
 	}
 
 	if( EDD_Recurring_Customer::is_customer_active() ) {
-		edd_set_error( edd-one-subscription', __( 'You already have an active subscription so may not purchase a second one.', 'edd' ) );
+		edd_set_error( 'edd-one-subscription', __( 'You already have an active subscription so may not purchase a second one.', 'edd' ) );
 	}
 
 }
