@@ -16,6 +16,8 @@ Most files in this library are set up to be WordPress plugins:
 
 For files that aren't set up as plugins follow steps 1 and 2 above and then copy and paste the code into your child theme's functions.php or place inside a custom functionality plugin.
 
+If you need help customising any of the snippets or do not understand how to use them, we recommend [hiring an EDD consultant](https://easydigitaldownloads.com/consultants/).
+
 ## Submitting Your Snippet
 
 We welcome and encourage everyone to submit their code snippets. If you would like to submit your snippet, please [fork](https://github.com/easydigitaldownloads/library/fork) the repository and then create a [pull request](https://github.com/easydigitaldownloads/library/compare/).
