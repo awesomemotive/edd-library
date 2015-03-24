@@ -5,6 +5,19 @@ This is a community-maintained repository of code snippets that help modify the 
 
 Snippets are organized into categories (folders) and each snippet is placed in its own file with a name that describes what it does.
 
+## Using Snippets
+
+Most files in this library are set up to be WordPress plugins:
+
+1. Click on the filename of the snippet you'd like to use.
+2. Click the "Raw" button (next to "Blame" and "History") at the top right.
+3. Save the page from your browser to your wp-content/plugins folder and upload to your server. Alternatively you can compress the file as a .zip file and upload as a plugin from within WordPress. 
+4. Activate the plugin from the WordPress plugins page.
+
+For files that aren't set up as plugins follow steps 1 and 2 above and then copy and paste the code into your child theme's functions.php or place inside a custom functionality plugin.
+
+If you need help customising any of the snippets or do not understand how to use them, we recommend [hiring an EDD consultant](https://easydigitaldownloads.com/consultants/).
+
 ## Submitting Your Snippet
 
 We welcome and encourage everyone to submit their code snippets. If you would like to submit your snippet, please [fork](https://github.com/easydigitaldownloads/library/fork) the repository and then create a [pull request](https://github.com/easydigitaldownloads/library/compare/).
