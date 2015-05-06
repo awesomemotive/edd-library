@@ -1,9 +1,11 @@
 <?php
 /*
- *
- * Sends an email to the author of the download when published.  
- *
- */ 
+ * Plugin Name: Easy Digital Downloads - Publishing email
+ * Description: Emails the author when their download is published.
+ * Author: Chris LaBonty
+ * Author URI: http://chrislabonty.com/
+ * Version: 1.0
+ */
 
 function cl_edd_emailNotificationDownloadPublished($post_id) {
 
