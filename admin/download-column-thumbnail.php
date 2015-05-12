@@ -1,9 +1,9 @@
 <?php
 /*
  * Plugin Name: Download Column Thumbnail
- * Description: Render a new column featuring the download thumbnail.
+ * Description: Render a new post column featuring the download thumbnail.
  * Author: Cor van Noorloos
- * Version: 1.0
+ * Version: 1.0.1
  */
 
 add_filter( 'manage_edit-download_columns', 'cor_edd_manage_edit_download_columns' );
@@ -33,21 +33,24 @@ add_action( 'admin_print_styles-edit.php', 'cor_edd_admin_print_styles_edit' );
  * Column thumbnail specific styles.
  */
 function cor_edd_admin_print_styles_edit() {
-	?>
-	<style>
-		.fixed .column-icon {
-			text-align: center;
-		}
+	$screen = get_current_screen();
+	if ( 'edit-download' === $screen->id ) {
+		?>
+		<style>
+			.fixed .column-icon {
+				text-align: center;
+			}
 
-		.fixed .column-icon img {
-			display: inline-block;
-			width: auto;
-			max-width: 80px;
-			height: auto;
-			max-height: 60px;
-			border: 1px solid #e7e7e7;
-			border: 1px solid rgba(0, 0, 0, 0.07);
-		}
-	</style>
-	<?php
+			.fixed .column-icon img {
+				display: inline-block;
+				width: auto;
+				max-width: 80px;
+				height: auto;
+				max-height: 60px;
+				border: 1px solid #e7e7e7;
+				border: 1px solid rgba(0, 0, 0, 0.07);
+			}
+		</style>
+		<?php
+	}
 }
