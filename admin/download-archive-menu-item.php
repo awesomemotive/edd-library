@@ -1,7 +1,11 @@
 <?php
-/**
- * Displays the download archive link in the "View All" tab of the "Pages" menu items meta box.
+/*
+ * Plugin Name: Download Archive Menu Item
+ * Description: Displays the download archive link in the "View All" tab of the "Pages" menu items meta box.
+ * Author: Cor van Noorloos
+ * Version: 1.0
  */
+
 function cor_edd_nav_menu_items_page( $posts ) {
 	array_unshift(
 		$posts, (object) array(
