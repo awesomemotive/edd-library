@@ -7,26 +7,39 @@
  * Version: 1.0
  */
 
-function cl_edd_emailNotificationDownloadPublished($post_id) {
+
+/**
+ * Given a Download ID being published, if it's not the same user as logged in, send an email about it being live
+ *
+ * @param  int $post_id The download id being published
+ * @return void
+ */
+function cl_edd_emailNotificationDownloadPublished( $post_id ) {
 
 	if( ( $_POST['post_status'] == 'publish' ) && ( $_POST['original_post_status'] != 'publish' ) ) {
 
-		$post = get_post($post_id);
-		$author = get_userdata($post->post_author);
-		$author_email = $author->user_email;
-		$message = "Hi ".$author->display_name.",
+		$current_user_id = get_current_user_id();
+		if ( $current_user_id == $post->post_author );
+			// Don't send if it's the person logged in
+			return;
+		}
 
-Your download, ".$post->post_title." is now live!
+		$post     = get_post( $post_id );
+		$author   = get_userdata( $post->post_author );
 
-".get_permalink( $post_id )."
+		$to       = $author->user_email;
 
-Let me know if you have any questions or need assistance.
+		$subject  = __( 'Your Download Is Live!', 'edd' );
 
-Cheers,
+		$message  = 'Hi ' . $author->display_name . ',' . "\n\n";
+		$message .= 'Your download, ' . $post->post_title . ' is now live!' . "\n";
+		$message .= get_permalink( $post_id ) . "\n\n";
+		$message .= 'Let us know if you have any questions or need assistance.' . "\n\n";
+		$message .= 'Cheers,' . "\n\n";
+		$message .= 'The ' . get_bloginfo( 'name' ) . ' Team';
 
-";
-		wp_mail($author_email, "Your Download Is Live!", $message);
+		EDD()->emails->send( $to, $subject, $message );
 
 	}
 }
-add_action('publish_download', 'cl_edd_emailNotificationDownloadPublished');
+add_action( 'publish_download', 'cl_edd_emailNotificationDownloadPublished', 10, 1 );
