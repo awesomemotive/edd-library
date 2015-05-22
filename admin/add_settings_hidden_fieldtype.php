@@ -6,9 +6,6 @@
  * Version: 1.0
  */
 
-/* 
- Here we define new field type for EDD settings: input hidden
-*/
 function edd_hidden_callback( $args ) {
 	global $edd_options;
 	if ( isset( $edd_options[ $args['id'] ] ) )
