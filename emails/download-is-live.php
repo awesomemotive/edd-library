@@ -1,0 +1,45 @@
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Publishing email
+ * Description: Emails the author when their download is published.
+ * Author: Chris LaBonty
+ * Author URI: http://chrislabonty.com/
+ * Version: 1.0
+ */
+
+
+/**
+ * Given a Download ID being published, if it's not the same user as logged in, send an email about it being live
+ *
+ * @param  int $post_id The download id being published
+ * @return void
+ */
+function cl_edd_emailNotificationDownloadPublished( $post_id ) {
+
+	if( ( $_POST['post_status'] == 'publish' ) && ( $_POST['original_post_status'] != 'publish' ) ) {
+
+		$current_user_id = get_current_user_id();
+		if ( $current_user_id == $post->post_author );
+			// Don't send if it's the person logged in
+			return;
+		}
+
+		$post     = get_post( $post_id );
+		$author   = get_userdata( $post->post_author );
+
+		$to       = $author->user_email;
+
+		$subject  = __( 'Your Download Is Live!', 'edd' );
+
+		$message  = 'Hi ' . $author->display_name . ',' . "\n\n";
+		$message .= 'Your download, ' . $post->post_title . ' is now live!' . "\n";
+		$message .= get_permalink( $post_id ) . "\n\n";
+		$message .= 'Let us know if you have any questions or need assistance.' . "\n\n";
+		$message .= 'Cheers,' . "\n\n";
+		$message .= 'The ' . get_bloginfo( 'name' ) . ' Team';
+
+		EDD()->emails->send( $to, $subject, $message );
+
+	}
+}
+add_action( 'publish_download', 'cl_edd_emailNotificationDownloadPublished', 10, 1 );
