@@ -33,7 +33,7 @@ if ( !class_exists( "EDD_Modules_Settings" ) ) {
         public function setSections() {
             $this->sections[] = array(
                 'title' => __( 'Modules Settings', 'edd_modules' ),
-                'desc' => __( 'These settings are used to hide modeules that aren\'t applicable to you', 'edd_modules' ),
+                'desc' => __( 'These settings are used to hide modules that aren\'t applicable to you', 'edd_modules' ),
                 'icon' => 'el-icon-home',
                 'fields' => array(
                     // todo: coming soon
