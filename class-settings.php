@@ -32,7 +32,7 @@ if ( !class_exists( "EDD_Modules_Settings" ) ) {
 
         public function setSections() {
             $this->sections[] = array(
-                'title' => __( 'General Module Settings', 'edd_modules' ),
+                'title' => __( 'Modules Settings', 'edd_modules' ),
                 'desc' => __( 'These settings are used to hide modeules that aren\'t applicable to you', 'edd_modules' ),
                 'icon' => 'el-icon-home',
                 'fields' => array(
@@ -49,7 +49,7 @@ if ( !class_exists( "EDD_Modules_Settings" ) ) {
             $this->sections[] = array(
                 'title' => __( 'Admin', 'edd_modules' ),
                 'desc' => __( 'This set of snippets affects the admin area of EDD', 'edd_modules' ),
-                'icon' => 'el-icon-admin',
+                'icon' => '',
                 'fields' => array(
                     array(
                         'id'=> 'admin-add-settings-hidden-field-type',
@@ -122,7 +122,7 @@ if ( !class_exists( "EDD_Modules_Settings" ) ) {
             $this->sections[] = array(
                 'title' => __( 'Checkout', 'edd_modules' ),
                 'desc' => __( 'This set of modules affects the admin area of EDD', 'edd_modules' ),
-                'icon' => 'el-icon-admin',
+                'icon' => '',
                 'fields' => array(
                     array(
                         'id'=> 'checkout-add-text-before-purchase-button',
@@ -386,6 +386,7 @@ if ( !class_exists( "EDD_Modules_Settings" ) ) {
                         'url'      => true,
                         'title'    => __('SSL Seal', 'edd_modules'),
                         'default'  => '',
+                        'required' => array( 'checkout-show-ssl-seal', 'equals', array( '1' ) ),
                     ),
                     array(
                         'id'       => 'checkout-custom-user-role',
@@ -407,7 +408,7 @@ if ( !class_exists( "EDD_Modules_Settings" ) ) {
             $this->sections[] = array(
                 'title' => __( 'Downloads', 'edd_modules' ),
                 'desc' => __( 'This set of modules affects downloads', 'edd_modules' ),
-                'icon' => 'el-icon-admin',
+                'icon' => '',
                 'fields' => array(
                     array(
                         'id'=> 'downloads-disable-quantity-field-on-download',
@@ -466,9 +467,9 @@ if ( !class_exists( "EDD_Modules_Settings" ) ) {
                         'default'   => false,
                     ),
                     array(
-                        'id'=> 'downloads-remove-product-notes-for-some-downloads',
+                        'id'=> 'downloads-remove-product-notes-for-some-downloads-select',
                         'type' => 'switch',
-                        'title' => __( '', 'edd_modules' ),
+                        'title' => __( 'Select which downloads to remove product notes for', 'edd_modules' ),
                         'subtitle' => __( '', 'edd_modules' ),
                         'default'   => false,
                         'required' => array( 'downloads-remove-product-notes-for-all-downloads', 'equals', array( '0' ) ),
@@ -523,7 +524,7 @@ if ( !class_exists( "EDD_Modules_Settings" ) ) {
             $this->sections[] = array(
                 'title' => __( 'Emails', 'edd_modules' ),
                 'desc' => __( 'This set of modules affects the emails sent from EDD', 'edd_modules' ),
-                'icon' => 'el-icon-admin',
+                'icon' => '',
                 'fields' => array(
                     array(
                         'id'=> 'emails-disable-emails-free-purchases',
@@ -547,13 +548,6 @@ if ( !class_exists( "EDD_Modules_Settings" ) ) {
                         'default'   => false,
                     ),
                     array(
-                        'id'=> 'emails-',
-                        'type' => 'switch',
-                        'title' => __( '', 'edd_modules' ),
-                        'subtitle' => __( '', 'edd_modules' ),
-                        'default'   => false,
-                    ),
-                    array(
                         'id'=> 'emails-pre-approval-emails',
                         'type' => 'switch',
                         'title' => __( 'Email Pre-Approval Emails', 'edd_modules' ),
@@ -572,7 +566,7 @@ if ( !class_exists( "EDD_Modules_Settings" ) ) {
             $this->sections[] = array(
                 'title' => __( 'Extensions', 'edd_modules' ),
                 'desc' => __( 'This set of modules are for EDD extensions', 'edd_modules' ),
-                'icon' => 'el-icon-admin',
+                'icon' => '',
                 'fields' => array(
                     array(
                         'id'   =>'extensions-commissions',
@@ -622,7 +616,7 @@ if ( !class_exists( "EDD_Modules_Settings" ) ) {
                             'default'   => false,
                         ),
                         array(
-                            'id'=> 'extensions-change-vendor-pending-message',
+                            'id'=> 'extensions-change-vendor-pending-message-select',
                             'type' => 'text',
                             'title' => __( 'Vendor Pending Message Text', 'edd_modules' ),
                             'default'   => '',
@@ -658,7 +652,7 @@ if ( !class_exists( "EDD_Modules_Settings" ) ) {
             $this->sections[] = array(
                 'title' => __( 'Output', 'edd_modules' ),
                 'desc' => __( 'This set of snippets affects the admin area of EDD', 'edd_modules' ),
-                'icon' => 'el-icon-admin',
+                'icon' => '',
                 'fields' => array(
                     array(
                         'id'=> 'admin-add-settings-hidden-field-type',
@@ -673,7 +667,7 @@ if ( !class_exists( "EDD_Modules_Settings" ) ) {
             $this->sections[] = array(
                 'title' => __( 'Misc', 'edd_modules' ),
                 'desc' => __( 'This set of snippets affects the admin area of EDD', 'edd_modules' ),
-                'icon' => 'el-icon-admin',
+                'icon' => '',
                 'fields' => array(
                     array(
                         'id'=> 'admin-add-settings-hidden-field-type',
@@ -771,7 +765,7 @@ if ( !class_exists( "EDD_Modules_Settings" ) ) {
                 } else {
                     $v = str_replace( "-", "_", $this->args['opt_name'] );
                 }
-                $this->args['intro_text'] = __( 'Thanks for using the EDD Library', 'edd_modules' );
+                $this->args['intro_text'] = __( 'Note: As a snippets library, there is no support for this plugin.', 'edd_modules' );
             }
         }
 
