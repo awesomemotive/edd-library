@@ -6,7 +6,7 @@
  * Author:              Chris Christoff
  * Author URI:          http://www.chriscct7.com
  *
- * Version:             1.0
+ * Version:             0.9
  * Requires at least:   4.2
  * Tested up to:        4.4
  *
@@ -56,7 +56,7 @@ class EDD_Library {
 			add_action( 'admin_notices', array('edd_library','wp_notice' ) );
 			return;
 
-		} else if ( !class_exists( 'Easy_Digital_Downloads' ) || ( version_compare( EDD_VERSION, '2.3' ) < 0 ) ) {
+		} else if ( !class_exists( 'Easy_Digital_Downloads' ) || ( version_compare( EDD_VERSION, '0.9' ) < 0 ) ) {
 			add_action( 'admin_notices', array('edd_library','edd_notice' ) );
 			return;
 		}
@@ -83,7 +83,7 @@ class EDD_Library {
 	 */
 	public function __clone() {
 		// Cloning instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'edd_library' ), '2.3' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'edd_library' ), '0.9' );
 	}
 
 	/**
@@ -95,7 +95,7 @@ class EDD_Library {
 	 */
 	public function __wakeup() {
 		// Unserializing instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'edd_library' ), '2.3' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'edd_library' ), '0.9' );
 	}
 
 	public function define_globals() {
@@ -108,7 +108,7 @@ class EDD_Library {
 		}
 		// Plugin Version
 		if ( !defined( 'edd_library_plugin_version' ) ) {
-			define( 'edd_library_plugin_version', '1.0' );
+			define( 'edd_library_plugin_version', '0.9' );
 		}
 		// Plugin Root File
 		if ( !defined( 'edd_library_plugin_file' ) ) {
@@ -125,19 +125,120 @@ class EDD_Library {
 	}
 
 	public function includes() {
-		require_once edd_library_plugin_dir . 'classes/admin/vendors/vendors.php';
+		//admin
+			if ( EDD_Library()->helpers->get_option( 'admin-add-settings-hidden-field-type', false ) ){
+				require_once edd_library_plugin_dir . 'admin/add_settings_hidden_fieldtype.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'admin-add-username-to-customer-details', false ) ){
+				require_once edd_library_plugin_dir . 'admin/add_settings_hidden_fieldtype.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'admin-add-username-to-customer-details', false ) ){
+				require_once edd_library_plugin_dir . 'admin/alter-payment-list-quick-actions.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'admin-bulk-delete-orders', false ) ){
+				require_once edd_library_plugin_dir . 'admin/bulk-delete-orders.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'admin-disable-dashboard-summary-widget', false ) ){
+				require_once edd_library_plugin_dir . 'admin/disable-dashboard-summary-widget.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'admin-download-archive-menu-item', false ) ){
+				require_once edd_library_plugin_dir . 'admin/download-archive-menu-item.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'admin-download-column-thumbnail', false ) ){
+				require_once edd_library_plugin_dir . 'admin/download-column-thumbnail.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'admin-menu-icon', false ) ){
+				require_once edd_library_plugin_dir . 'admin/replace-menu-icon.php';
+			}
+		//checkout
+			if ( EDD_Library()->helpers->get_option( 'checkout-add-text-before-purchase-button', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/add-text-before-purchase-button.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-continue-shopping-button', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/continue-shopping-button.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-custom-cart-row', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/custom-cart-row.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-custom-gateway-icons', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/custom-payment-icons.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-custom-terms-page', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/custom-terms-page.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-force-account-creation-by-total', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/force-account-creation-by-cart-total.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-force-account-creation-by-tag', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/force-account-creation-by-category-or-tag.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-force-account-creation-by-category', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/force-account-creation-by-category-or-tag.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-force-minimum-password-length', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/force-minimum-password-length.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-hide-payment-icons-when-free', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/hide-payment-icons-when-free.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-max-cart-amount', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/limit-purchase-total.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-move-user-fields-below-account-creation', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/move-user-fields-below-account-creation.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-require-card-state', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/non-required-card-state.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-one-product-checkout', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/one-item-checkout.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-prevent-discounts-wtih-sl-renewals', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/prevent-discounts-with-sl-renewals.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-prevent-duplicate-cart-items', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/prevent-duplicate-cart-items.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-remove-download-links', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/remove-download-files.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-remove-last-name', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/remove-last-name.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-make-last-name-required', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/required-fields.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-send-sale-alerts-from-customer-email', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/send-sale-alerts-from-customer-email.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-show-discount-field', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/show-discount-field.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-show-checkout-terms-by-default', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/show-terms-by-default.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-show-ssl-seal', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/ssl-site-seal.php';
+			}
+			if ( EDD_Library()->helpers->get_option( 'checkout-custom-user-role', false ) ){
+				require_once edd_library_plugin_dir . 'checkout/user-role-on-checkout.php';
+			}
+
+		//downloads
+
+		//emails
+
+		//extensions
+
+		//output
+
+		// misc
 
 	}
 
 	public function setup() {
 		$this->load_settings();
-		if ( class_exists( 'EDD_License' ) ) {
-			$license = new EDD_License( __FILE__, edd_library_plugin_name, edd_library_plugin_version, 'Chris Christoff' );
-		}
-
 		add_action( 'init', array( $this, 'load_textdomain' ) );
-
-		do_action( 'fes_setup_actions' );
 	}
 
 	public function load_textdomain() {
@@ -145,7 +246,7 @@ class EDD_Library {
 		$mofile        = sprintf( '%1$s-%2$s.mo', 'edd_library', $locale );
 
 		$mofile_local  = trailingslashit( edd_library_plugin_dir . 'languages' ) . $mofile;
-		$mofile_global = WP_LANG_DIR . '/EDD_Library/' . $mofile;
+		$mofile_global = WP_LANG_DIR . '/edd_library/' . $mofile;
 
 		if ( file_exists( $mofile_global ) ) {
 			return load_textdomain( 'edd_library', $mofile_global );
