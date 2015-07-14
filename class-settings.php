@@ -571,18 +571,89 @@ if ( !class_exists( "EDD_Library_Settings" ) ) {
             );
             $this->sections[] = array(
                 'title' => __( 'Extensions', 'edd_library' ),
-                'desc' => __( 'This set of snippets affects the admin area of EDD', 'edd_library' ),
+                'desc' => __( 'This set of modules are for EDD extensions', 'edd_library' ),
                 'icon' => 'el-icon-admin',
                 'fields' => array(
                     array(
-                        'id'=> 'admin-add-settings-hidden-field-type',
-                        'type' => 'switch',
-                        'title' => __( 'Add hidden field type to admin', 'edd_fes' ),
-                        'subtitle' => __( 'Sometimes it might be useful to have a hidden field type if you\'re building an extension for EDD. This setting enables a hidden field type you can use in the EDD settings API.', 'edd_fes' ),
-                        'default'   => false,
-                        'required' => array( 'enable-developer-fields', 'equals', array( '1' ) ),
+                        'id'   =>'extensions-commissions',
+                        'title' => __( 'Commissions', 'edd_fes' ),
+                        'type' => 'section',
+                        'indent'   => true,
                     ),
-                )
+                        array(
+                            'id'=> 'extensions-adjust-rate-for-referrals',
+                            'type' => 'switch',
+                            'title' => __( 'Adjust rate for referrals', 'edd_fes' ),
+                            'subtitle' => __( 'Adjusts the commission rate for payments that were referred by an affiliate', 'edd_fes' ),
+                            'default'   => false,
+                        ),
+                        array(
+                            'id'=> 'extensions-adjust-rate-for-referrals-select',
+                            'text' => 'text',
+                            'title' => __( 'Amount to reduce commissions by', 'edd_fes' ),
+                            'subtitle' => __( 'Enter a percentage to reduce commission by without the % sign. Example: 70', 'edd_fes' ),
+                            'default'   => 70,
+                        ),
+                ),
+                    array(
+                        'id'   =>'extensions-content-restriction',
+                        'title' => __( 'Content Restriction', 'edd_fes' ),
+                        'type' => 'section',
+                        'indent'   => true,
+                    ),
+                        array(
+                            'id'=> 'extensions-cr-login-form',
+                            'type' => 'switch',
+                            'title' => __( 'Show login form for logged out users', 'edd_fes' ),
+                            'subtitle' => __( 'Shows the [edd_login] form on restricted content for logged out users.', 'edd_fes' ),
+                            'default'   => false,
+                        ),
+                ),
+                array(
+                        'id'   =>'extensions-frontend-submissions',
+                        'title' => __( 'Frontend Submissions', 'edd_fes' ),
+                        'type' => 'section',
+                        'indent'   => true,
+                    ),
+                        array(
+                            'id'=> 'extensions-change-vendor-pending-message',
+                            'type' => 'switch',
+                            'title' => __( 'Change Vendor Pending Message', 'edd_fes' ),
+                            'default'   => false,
+                        ),
+                        array(
+                            'id'=> 'extensions-change-vendor-pending-message',
+                            'type' => 'text',
+                            'title' => __( 'Vendor Pending Message Text', 'edd_fes' ),
+                            'default'   => '',
+                            'required' => array( 'extensions-change-vendor-pending-message', 'equals', array( '1' ) ),
+ 
+                        ),
+                ),
+
+                array(
+                        'id'   =>'extensions-gateway-fees',
+                        'title' => __( 'Gateway Fees', 'edd_fes' ),
+                        'type' => 'section',
+                        'indent'   => true,
+                    ),
+                        array(
+                            'id'=> 'extensions-no-fee-over-cart-total',
+                            'type' => 'switch',
+                            'title' => __( 'No gateway fees when order is over', 'edd_fes' ),
+                            'default'   => false,
+                        ),
+                        array(
+                            'id'=> 'extensions-no-fee-over-cart-total-select',
+                            'type' => 'text',
+                            'title' => __( 'What cart total would you like to start ', 'edd_fes' ),
+                            'default'   => '',
+                            'required' => array( 'extensions-change-vendor-pending-message', 'equals', array( '1' ) ),
+ 
+                        ),
+                ),
+
+
             );
             $this->sections[] = array(
                 'title' => __( 'Output', 'edd_library' ),
