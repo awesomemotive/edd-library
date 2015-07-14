@@ -1,8 +1,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Easy Digital Downloads - Library\n"
-"POT-Creation-Date: 2015-07-14 12:54-0400\n"
+"Project-Id-Version: Easy Digital Downloads - Modules 0.9\n"
+"POT-Creation-Date: 2015-07-14 16:14-0400\n"
 "PO-Revision-Date: 2015-02-12 12:34-0600\n"
 "Last-Translator: Chris Christoff <support@easydigitaldownloads.com>\n"
 "Language-Team: Chris Christoff <support@easydigitaldownloads.com>\n"
@@ -195,24 +195,532 @@ msgid "Agree to Terms?"
 msgstr ""
 
 #: ../class-settings.php:35
-msgid "Main Settings"
+msgid "General Module Settings"
 msgstr ""
 
 #: ../class-settings.php:36
+msgid "These settings are used to hide modeules that aren't applicable to you"
+msgstr ""
+
+#: ../class-settings.php:43
+msgid "Show Developer Fields"
+msgstr ""
+
+#: ../class-settings.php:44
+msgid "Hide all the extensions that are for developers, not users."
+msgstr ""
+
+#: ../class-settings.php:50
+msgid "Admin"
+msgstr ""
+
+#: ../class-settings.php:51 ../class-settings.php:660
+#: ../class-settings.php:675
+msgid "This set of snippets affects the admin area of EDD"
+msgstr ""
+
+#: ../class-settings.php:57 ../class-settings.php:666
+#: ../class-settings.php:681
+msgid "Add hidden field type to admin"
+msgstr ""
+
+#: ../class-settings.php:58 ../class-settings.php:667
+#: ../class-settings.php:682
 msgid ""
-"Easy Digital Downloads Library contains dozens of additional features that "
-"we don't ship with EDD core"
+"Sometimes it might be useful to have a hidden field type if you're building "
+"an extension for EDD. This setting enables a hidden field type you can use "
+"in the EDD settings API."
 msgstr ""
 
-#: ../class-settings.php:53
-msgid "Easy Digital Downloads Snippets Library"
+#: ../class-settings.php:65
+msgid "Add username to customer details"
 msgstr ""
 
-#: ../class-settings.php:57 ../class-settings.php:58
-msgid "EDD Library"
+#: ../class-settings.php:66
+msgid ""
+"Adds the customer’s username to the \"Customer Details\" section on the "
+"payment screen, and links it through to the user’s profile."
 msgstr ""
 
-#: ../class-settings.php:83 ../class-settings.php:128
+#: ../class-settings.php:72
+msgid "Remove Delete from Payment List Quick Actions"
+msgstr ""
+
+#: ../class-settings.php:73
+msgid ""
+"Useful for when you want to hide the ability to delete payments. Warning: "
+"requires you to add a custom cap 'delete_shop_payment' to users who can "
+"delete payments to work"
+msgstr ""
+
+#: ../class-settings.php:79
+msgid "Add bulk delete orders panel"
+msgstr ""
+
+#: ../class-settings.php:80
+msgid ""
+"Useful for when you want to quickly delete a lot of purchases. Found under "
+"it's own menu item under download when turned on"
+msgstr ""
+
+#: ../class-settings.php:86
+msgid "Disable EDD Dashboard Widget"
+msgstr ""
+
+#: ../class-settings.php:87
+msgid "Removes the EDD sales sumamry widget"
+msgstr ""
+
+#: ../class-settings.php:93
+msgid "Show Download Archive Menu Item"
+msgstr ""
+
+#: ../class-settings.php:94
+msgid ""
+"Displays the download archive link in the \"View All\" tab of the \"Pages\" "
+"menu items meta box."
+msgstr ""
+
+#: ../class-settings.php:100
+msgid "Show Download Column Thumbnail"
+msgstr ""
+
+#: ../class-settings.php:101
+msgid "Render a new post column featuring the download thumbnail."
+msgstr ""
+
+#: ../class-settings.php:107
+msgid "Replace Menu Icon"
+msgstr ""
+
+#: ../class-settings.php:108
+msgid ""
+"Replace the standard menu icon in Easy Digital Downloads with an icon from "
+"Dashicons"
+msgstr ""
+
+#: ../class-settings.php:114
+msgid "New Menu Icon"
+msgstr ""
+
+#: ../class-settings.php:115
+msgid "You can find other images you can use "
+msgstr ""
+
+#: ../class-settings.php:115
+msgid "here"
+msgstr ""
+
+#: ../class-settings.php:116
+msgid "A valid setting value begins with dashicons- "
+msgstr ""
+
+#: ../class-settings.php:123
+msgid "Checkout"
+msgstr ""
+
+#: ../class-settings.php:124
+msgid "This set of modules affects the admin area of EDD"
+msgstr ""
+
+#: ../class-settings.php:130 ../class-settings.php:137
+msgid "Text before Purchase Button"
+msgstr ""
+
+#: ../class-settings.php:131
+msgid "Add custom text just before the \"Purchase\" button at checkout"
+msgstr ""
+
+#: ../class-settings.php:138 ../class-settings.php:160
+msgid "What would you like to say?"
+msgstr ""
+
+#: ../class-settings.php:145
+msgid "Continue shopping button"
+msgstr ""
+
+#: ../class-settings.php:146
+msgid "Show a continue shopping button on the checkout page"
+msgstr ""
+
+#: ../class-settings.php:152
+msgid "Custom Cart Row"
+msgstr ""
+
+#: ../class-settings.php:153
+msgid "Add a custom row of HTML to the checkout shopping cart"
+msgstr ""
+
+#: ../class-settings.php:159
+msgid "Custom Cart Row HTML"
+msgstr ""
+
+#: ../class-settings.php:167
+msgid "Custom Gateway Icons"
+msgstr ""
+
+#: ../class-settings.php:168
+msgid "Add a custom gateway icons that show on the checkout page"
+msgstr ""
+
+#: ../class-settings.php:174
+msgid "Payment Icons To Show"
+msgstr ""
+
+#: ../class-settings.php:181
+msgid "Text Field"
+msgstr ""
+
+#: ../class-settings.php:187
+msgid "Icon"
+msgstr ""
+
+#: ../class-settings.php:195
+msgid "Custom Terms Page"
+msgstr ""
+
+#: ../class-settings.php:196
+msgid ""
+"Custom page for \"agree to terms\" and link to it instead of opening terms "
+"in slidedown panel. Good for when you have a lot of text."
+msgstr ""
+
+#: ../class-settings.php:202
+msgid "Select Custom Terms Page"
+msgstr ""
+
+#: ../class-settings.php:210
+msgid "Force Account Creation When Order Exceeds $x"
+msgstr ""
+
+#: ../class-settings.php:211
+msgid ""
+"Force account creation at checkout if the cart total is a certain amount"
+msgstr ""
+
+#: ../class-settings.php:217
+msgid "How much (enter using XX.XX format)"
+msgstr ""
+
+#: ../class-settings.php:225
+msgid "Force Account Creation When Order Contains Product With Tag"
+msgstr ""
+
+#: ../class-settings.php:231 ../class-settings.php:479
+msgid "Which tag(s)"
+msgstr ""
+
+#: ../class-settings.php:241
+msgid "Force Account Creation When Order Contains Product With Category"
+msgstr ""
+
+#: ../class-settings.php:247
+msgid "Which category(s)"
+msgstr ""
+
+#: ../class-settings.php:256
+msgid "Force minimum password length"
+msgstr ""
+
+#: ../class-settings.php:263
+msgid "What should the minimum password length be?"
+msgstr ""
+
+#: ../class-settings.php:264
+msgid "Enter a number"
+msgstr ""
+
+#: ../class-settings.php:271
+msgid "When cart total is $0, hide payment icons"
+msgstr ""
+
+#: ../class-settings.php:278
+msgid "Have a maximum cart amount"
+msgstr ""
+
+#: ../class-settings.php:279
+msgid "Useful when you want to limit the size a cart can be in $"
+msgstr ""
+
+#: ../class-settings.php:285
+msgid "What should the max cart total be?"
+msgstr ""
+
+#: ../class-settings.php:286
+msgid "Enter a number (in xx.yy format)"
+msgstr ""
+
+#: ../class-settings.php:293
+msgid "Move user fields below acount creation"
+msgstr ""
+
+#: ../class-settings.php:300
+msgid "Require state field for credit cards"
+msgstr ""
+
+#: ../class-settings.php:307
+msgid "Only allow carts to contain 1 item"
+msgstr ""
+
+#: ../class-settings.php:314
+msgid "Prevent Discounts with Software Licensing renewals"
+msgstr ""
+
+#: ../class-settings.php:321
+msgid "Prevent Duplicate cart items"
+msgstr ""
+
+#: ../class-settings.php:328
+msgid "Remove download links from checkout page for all downloads"
+msgstr ""
+
+#: ../class-settings.php:335
+msgid "Remove last name field"
+msgstr ""
+
+#: ../class-settings.php:342
+msgid "Make last name required"
+msgstr ""
+
+#: ../class-settings.php:350
+msgid "Remove last-name"
+msgstr ""
+
+#: ../class-settings.php:357
+msgid "Send Admin sale alerts from customer email"
+msgstr ""
+
+#: ../class-settings.php:358
+msgid ""
+"This makes it easier for users who wish to contact customers after purchase"
+msgstr ""
+
+#: ../class-settings.php:364
+msgid "Always show discount field"
+msgstr ""
+
+#: ../class-settings.php:371
+msgid "Show checkout terms by default"
+msgstr ""
+
+#: ../class-settings.php:379
+msgid "Show an SSL seal on checkout"
+msgstr ""
+
+#: ../class-settings.php:387
+msgid "SSL Seal"
+msgstr ""
+
+#: ../class-settings.php:394
+msgid "Give Customers a custom user role on checkout"
+msgstr ""
+
+#: ../class-settings.php:400
+msgid "Which role"
+msgstr ""
+
+#: ../class-settings.php:408
+msgid "Downloads"
+msgstr ""
+
+#: ../class-settings.php:409
+msgid "This set of modules affects downloads"
+msgstr ""
+
+#: ../class-settings.php:415
+msgid "Disable quantity field on download"
+msgstr ""
+
+#: ../class-settings.php:422
+msgid "After Download show filesizes"
+msgstr ""
+
+#: ../class-settings.php:423
+msgid ""
+"After the download content, shows a list of the download files and their "
+"sizes"
+msgstr ""
+
+#: ../class-settings.php:429
+msgid "Add comments to download post type"
+msgstr ""
+
+#: ../class-settings.php:436
+msgid "Add revisions to download post type"
+msgstr ""
+
+#: ../class-settings.php:443
+msgid "Exclude downloads from search"
+msgstr ""
+
+#: ../class-settings.php:450
+msgid "No default for variable prices"
+msgstr ""
+
+#: ../class-settings.php:451
+msgid "Prevent variable pricing options from being checked by default"
+msgstr ""
+
+#: ../class-settings.php:457
+msgid "Remove free text"
+msgstr ""
+
+#: ../class-settings.php:464
+msgid "Remove Product Notes For All Downloads"
+msgstr ""
+
+#: ../class-settings.php:489
+msgid "Replace add to cart with download"
+msgstr ""
+
+#: ../class-settings.php:490
+msgid ""
+"If the user has purcahsed the product already, show a links to download each "
+"file associated with the product instead of an Add To Cart Button"
+msgstr ""
+
+#: ../class-settings.php:496
+msgid "Reverse variable pricing"
+msgstr ""
+
+#: ../class-settings.php:503
+msgid "Show featured image with purchase link"
+msgstr ""
+
+#: ../class-settings.php:510
+msgid "Show pagination at top of [download] shortcode"
+msgstr ""
+
+#: ../class-settings.php:517
+msgid "Dropdown for variable prices"
+msgstr ""
+
+#: ../class-settings.php:524
+msgid "Emails"
+msgstr ""
+
+#: ../class-settings.php:525
+msgid "This set of modules affects the emails sent from EDD"
+msgstr ""
+
+#: ../class-settings.php:531
+msgid "Disable purchase emails for free pruchases"
+msgstr ""
+
+#: ../class-settings.php:538
+msgid "Disable new user notifications"
+msgstr ""
+
+#: ../class-settings.php:545
+msgid "Downloads Email Tag"
+msgstr ""
+
+#: ../class-settings.php:546
+msgid ""
+"Adds a {downloads} email tag for use in email templates that outputs a "
+"simple list of linked downloads without file names"
+msgstr ""
+
+#: ../class-settings.php:559
+msgid "Email Pre-Approval Emails"
+msgstr ""
+
+#: ../class-settings.php:566
+msgid "Show the Shop Vendor's email for each download purchased"
+msgstr ""
+
+#: ../class-settings.php:573 ../redux/ReduxCore/inc/welcome/welcome.php:343
+msgid "Extensions"
+msgstr ""
+
+#: ../class-settings.php:574
+msgid "This set of modules are for EDD extensions"
+msgstr ""
+
+#: ../class-settings.php:579
+msgid "Commissions"
+msgstr ""
+
+#: ../class-settings.php:586
+msgid "Adjust rate for referrals"
+msgstr ""
+
+#: ../class-settings.php:587
+msgid ""
+"Adjusts the commission rate for payments that were referred by an affiliate"
+msgstr ""
+
+#: ../class-settings.php:593
+msgid "Amount to reduce commissions by"
+msgstr ""
+
+#: ../class-settings.php:594
+#, php-format
+msgid ""
+"Enter a percentage to reduce commission by without the % sign. Example: 70"
+msgstr ""
+
+#: ../class-settings.php:600
+msgid "Content Restriction"
+msgstr ""
+
+#: ../class-settings.php:607
+msgid "Show login form for logged out users"
+msgstr ""
+
+#: ../class-settings.php:608
+msgid "Shows the [edd_login] form on restricted content for logged out users."
+msgstr ""
+
+#: ../class-settings.php:614
+msgid "Frontend Submissions"
+msgstr ""
+
+#: ../class-settings.php:621
+msgid "Change Vendor Pending Message"
+msgstr ""
+
+#: ../class-settings.php:627
+msgid "Vendor Pending Message Text"
+msgstr ""
+
+#: ../class-settings.php:636
+msgid "Gateway Fees"
+msgstr ""
+
+#: ../class-settings.php:643
+msgid "No gateway fees when order is over"
+msgstr ""
+
+#: ../class-settings.php:649
+msgid "What cart total would you like to start "
+msgstr ""
+
+#: ../class-settings.php:659
+msgid "Output"
+msgstr ""
+
+#: ../class-settings.php:674
+msgid "Misc"
+msgstr ""
+
+#: ../class-settings.php:699
+msgid "Easy Digital Downloads Modules"
+msgstr ""
+
+#: ../class-settings.php:703
+msgid "Modules"
+msgstr ""
+
+#: ../class-settings.php:704
+msgid "EDD Modules"
+msgstr ""
+
+#: ../class-settings.php:729
+msgid "Thanks for using the EDD Modules plugin"
+msgstr ""
+
+#: ../class-settings.php:774
 msgid "Thanks for using the EDD Library"
 msgstr ""
 
@@ -221,21 +729,21 @@ msgstr ""
 msgid "You already own this product. Download it now:"
 msgstr ""
 
-#: ../edd-library.php:86 ../edd-library.php:98
+#: ../edd-modules.php:87 ../edd-modules.php:99
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: ../edd-library.php:102
+#: ../edd-modules.php:103
 msgid "Easy Digital Downloads - Library"
 msgstr ""
 
-#: ../edd-library.php:171
+#: ../edd-modules.php:273
 msgid ""
 "<strong>Notice:</strong> Easy Digital Downloads Frontend Submissions "
 "requires Easy Digital Downloads 2.3 or higher in order to function properly."
 msgstr ""
 
-#: ../edd-library.php:181
+#: ../edd-modules.php:283
 msgid ""
 "<strong>Notice:</strong> Easy Digital Downloads Frontend Submissions "
 "requires WordPress 4.2 or higher in order to function properly."
@@ -1647,10 +2155,6 @@ msgstr ""
 
 #: ../redux/ReduxCore/inc/welcome/welcome.php:340
 msgid "What's New"
-msgstr ""
-
-#: ../redux/ReduxCore/inc/welcome/welcome.php:343
-msgid "Extensions"
 msgstr ""
 
 #: ../redux/ReduxCore/inc/welcome/welcome.php:346
