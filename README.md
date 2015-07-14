@@ -1,6 +1,7 @@
 EDD Modules:
-Note: Not stable yet. This plugin is not finished yet. Still some work to be done here! Don't try to use it.
 ========================
+
+Note: Not stable yet. This plugin is not finished yet. Still some work to be done here! Don't try to use it.
 
 This is a plugin that let's users toggle on and off modules from the core team maintained repository of code snippets that help modify the default behavior of [Easy Digital Downloads](https://easydigitaldownloads.com).
 
