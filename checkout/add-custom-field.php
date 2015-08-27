@@ -30,7 +30,7 @@ function sumobi_edd_display_checkout_fields() {
     </p>
     <?php
 }
-add_action( 'edd_purchase_form_user_info', 'sumobi_edd_display_checkout_fields' );
+add_action( 'edd_purchase_form_user_info_fields', 'sumobi_edd_display_checkout_fields' );
 
 /**
  * Make phone number required
