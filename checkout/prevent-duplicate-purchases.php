@@ -1,4 +1,4 @@
-<?php
+<?php // DO NOT COPY THIS LINE
 
 /**
  * Prevents logged-in customers from purchasing an item twice
