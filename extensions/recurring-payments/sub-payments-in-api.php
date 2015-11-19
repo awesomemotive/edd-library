@@ -10,7 +10,7 @@ function pw_edd_recurring_include_payments_in_api( $query ) {
     return;
   }
 
-  $query->__set( 'post_status', array( 'complete', 'edd_subscription' ) );
+  $query->__set( 'post_status', array( 'publish', 'complete', 'edd_subscription' ) );
 
 }
-add_action( 'edd_pre_get_payments', 'pw_edd_recurring_include_payments_in_api' );
+add_action( 'edd_pre_get_payments', 'pw_edd_recurring_include_payments_in_api', 100 );
