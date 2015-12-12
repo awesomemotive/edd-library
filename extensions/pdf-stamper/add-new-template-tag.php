@@ -7,7 +7,7 @@ License: GPL2
 */
 
 // Callback used for template tag
-function process_my_template_tag() {
+function process_my_template_tag( $download_id ) {
     $string = 'Success!';
 
     return $string;
