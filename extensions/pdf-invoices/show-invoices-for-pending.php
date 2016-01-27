@@ -14,6 +14,7 @@ function pw_edd_pdf_invoices_for_pending( $show_invoice, $payment_id ) {
     if( 'pending' === $status ) {
             $show_invoice = true;
     }
+	
     return $show_invoice;
 }
     
