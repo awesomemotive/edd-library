@@ -46,8 +46,8 @@ function edd_sl_current_user_has_valid_license_for( $download_ids ){
 						if ( $sl->is_download_id_valid_for_license( $download_id['download'], $license_key ) ){
 							
 							$license_status = $sl->get_license_status( $license_post->ID );
-														
-							if ( $license_status != 'expired' ){
+							
+							if ( $license_status != 'expired' && $license_post->post_status == 'publish' ){
 								
 								$license_valid_for_download = true;
 								break;
