@@ -8,7 +8,7 @@ function pd_edd_pre_update_user_profile( $user_id, $userdata ) {
 
 	$password = isset( $_POST['edd_new_user_pass1'] ) ? $_POST['edd_new_user_pass1'] : '';
 
-	if ( strlen( $password ) < $length ) {
+	if ( ! empty( $password ) && ( strlen( $password ) < $length ) ) {
 		edd_set_error( 'password_too_short', sprintf( 'Your password must contain at least %s characters.', $length ) );
 	}
 }
