@@ -24,12 +24,16 @@ if ( ! function_exists( 'fes_profile_data') ) {
             }
         }
 
+		$user_data = get_userdata( $vendor->ID );
+
         $output .= '<div id="' . esc_attr( $atts['key'] ) . '" class="vendor-profile-field">' . "\n";
 
         if ( 'description' == $atts['key'] ) {
             $output .= wpautop( get_user_meta( absint( $vendor->ID ), esc_attr( $atts['key'] ), true ) );
         } elseif ( 'user_avatar' == $atts['key'] ) {
             $output .= '<img src="' . esc_url( get_user_meta( absint( $vendor->ID ), esc_attr( $atts['key'] ), true ) ) . '" alt="Image of ' . esc_attr( $vendor->name ) . '">' . "\n";
+        } elseif ( 'display_name' == $atts['key'] ) {
+            $output .= $user_data->display_name;
         } else {
             $output .= get_user_meta( absint( $vendor->ID ), esc_attr( $atts['key'] ), true );
         }
