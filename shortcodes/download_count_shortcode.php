@@ -1,14 +1,21 @@
 <?php
 
+/*
+ * Plugin Name: Easy Digital Downloads - Download Count Shortcode
+ * Description: Add download count shortcode with ID and Offset attributs
+ * Author: X-Raym
+ * Author URI: http://www.extremraym.com
+ * Version: 1.0
+ */
+ 
 // Optional attributs supported : id, offset
 function edd_download_count_shortcode( $atts ) {
+  if( function_exists( 'edd_get_download_sales_stats' ) ) {    
     $post_id = get_the_ID();
     $a = shortcode_atts( array(
       'offset' => 0,
       'id' => $post_id,
     ), $atts );
-  
-  if( function_exists( 'edd_get_download_sales_stats' ) ) {
   	$download_count = edd_get_download_sales_stats( $a['id'] ) + $a['offset'];
   } else {
     $download_count = false;
