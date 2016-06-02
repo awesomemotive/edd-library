@@ -1,11 +1,10 @@
 <?php
 /*
- * Plugin Name: Easy Digital Downloads - {payment_id} email tag.
+ * Plugin Name: Easy Digital Downloads - Commissions payment_id email tag.
  * Description: This adds support for the {payment_id} email tag to Commissions Notifications
  * Author: Phil Johnston
  * Version: 1.0
  */
- 
 function pj_eddc_add_payment_id_email_template_tag( $message, $user_id, $commission_amount, $rate, $download_id, $commission_id ){
 	
 	//Get the payment Id
