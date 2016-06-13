@@ -1,0 +1,217 @@
+<?php
+/**
+ * Plugin Name: Retroactive Lifetime Licenses for EDD
+ * Plugin URI: https://github.com/easydigitaldownloads/library
+ * Description: Mark all existing licenses for an EDD product as lifetime licenses.
+ * Version: 0.0.1
+ * Author: Nate Wright
+ * Author URI: https://github.com/NateWr
+ * License:     GNU General Public License v2.0 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * This program is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the License,
+ * or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * You should have received a copy of the GNU General Public License along with this program; if not, write
+ * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ */
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Add a metabox to initiate the action
+ *
+ * @since 0.0.1
+ */
+function eddrll_add_metabox() {
+
+	$post_types = apply_filters( 'edd_download_metabox_post_types' , array( 'download' ) );
+
+	foreach ( $post_types as $post_type ) {
+
+		add_meta_box(
+			'edd_product_prices',
+			__( 'Retroactive Lifetime Licenses', 'edd-retroactive-lifetime-licenses' ),
+			'eddrll_render_metabox',
+			$post_type,
+			'side',
+			'low'
+		);
+	}
+
+}
+add_action( 'add_meta_boxes', 'eddrll_add_metabox' );
+
+/**
+ * Print the metabox to initiate the action
+ *
+ * @since 0.0.1
+ */
+function eddrll_render_metabox() {
+
+	global $post;
+
+	?>
+
+	<button href="#" id="eddrll" data-id="<?php echo absint( $post->ID ); ?>" class="button">
+		<?php esc_html_e( 'Grant lifetime license to all existing licenses for this download', 'edd-retroactive-lifetime-licenses' ); ?>
+	</button>
+
+	<?php delete_option( 'eddrll_status_' . $post->ID ); ?>
+
+	<script type="text/javascript">
+		jQuery(document).ready(function ($) {
+
+			eddrll = {
+				nonce: '<?php echo esc_js( wp_create_nonce( 'eddrll' ) ); ?>',
+			};
+
+			$( '#eddrll' ).click( function(e) {
+
+				e.preventDefault();
+				e.stopPropagation();
+
+				var id = $(this).data('id');
+
+				if ( !id ) {
+					return;
+				}
+
+				$(this).attr( 'disabled', 'disabled' );
+
+				var modified_licenses = 0;
+
+				$(this).after( '<div id="eddrll-progress">Processing...</div>' );
+
+				eddrll_post(id, modified_licenses);
+
+			} );
+
+			var eddrll_post = function(id, modified_licenses) {
+
+				var counter = counter || 0;
+				counter++;
+
+				$.post(
+					ajaxurl,
+					{
+						action: 'eddrll',
+						nonce: eddrll.nonce,
+						download_id: id,
+					},
+					function(r) {
+						console.log(r);
+
+						if ( typeof r === 'undefined' || !r.success ) {
+							$( '#eddrll-progress' ).html( 'Error' );
+							console.log(r);
+						}
+
+						modified_licenses += r.data.modified_licenses.length;
+						$('#eddrll-progress').text(modified_licenses.toString() + ' licenses modified' );
+
+						if ( r.data.status === true ) {
+							$('#eddrll-progress').text( $( '#eddrll-progress' ).text() + ' (complete)' );
+							return;
+						}
+
+						eddrll_post(id, modified_licenses);
+					}
+				);
+			};
+
+		} );
+	</script>
+
+	<?php
+
+}
+
+/**
+ * Process the request to extend licenses for a download
+ *
+ * @since 0.0.1
+ */
+function eddrll_process_license_extension() {
+
+	if ( !check_ajax_referer( 'eddrll', 'nonce' ) || !current_user_can( 'manage_options' ) ) {
+		wp_send_json_error(
+			array(
+				'error'		=> 'unauthenticated_request',
+			)
+		);
+	}
+
+	$id = empty( $_POST['download_id'] ) ? 0 : absint( $_POST['download_id'] );
+	if ( empty( $id ) || get_post_type( $id ) !== 'download' ) {
+		wp_send_json_error(
+			array(
+				'error'		=> 'no download found',
+			)
+		);
+	}
+
+	$status = get_option( 'eddrll_status_' . $id, 1 );
+
+	if ( $status === 'complete' ) {
+		wp_send_json_success(
+			array(
+				'status'	=> true,
+				'modified_licenses' => array(),
+			)
+		);
+	}
+
+	$batch_size = 500;
+
+	$status = (int) $status;
+
+	$licenses = new WP_Query(
+		array(
+			'post_type' => array( 'edd_license' ),
+			'posts_per_page' => $batch_size,
+			'paged' => $status,
+		)
+	);
+
+	if( !$licenses->have_posts() ) {
+
+		update_option( 'eddrll_status_' . $id, 'complete');
+
+		wp_send_json_success(
+			array(
+				'status' => true,
+				'modified_licenses' => array(),
+			)
+		);
+
+	}
+
+	$modified_licenses = array();
+	while ( $licenses->have_posts() ) {
+		$licenses->the_post();
+
+		$download_id = get_post_meta( get_the_ID(), '_edd_sl_download_id', true );
+		if ( $download_id == $id ) {
+			delete_post_meta( get_the_ID(), '_edd_sl_expiration' );
+			update_post_meta( get_the_ID(), '_edd_sl_is_lifetime', 1 );
+			$modified_licenses[] = get_the_ID();
+		}
+	}
+
+	$status++;
+
+	update_option( 'eddrll_status_' . $id, $status);
+
+	wp_send_json_success(
+		array(
+			'status' => $status,
+			'modified_licenses' => $modified_licenses,
+		)
+	);
+}
+add_action( 'wp_ajax_eddrll', 'eddrll_process_license_extension' );
+
