@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: License Keys UL - Email Template Tag for Software Licensing.
+ * Plugin Name: License Keys UL - Email Tag for Software Licensing.
  * Plugin URI: https://github.com/easydigitaldownloads/library
  * Description: Adds an email template tag called {license_keys_ul} which can be used to output an unordered list of the customer's purchased license keys.
  * Version: 1.0.0
  * Author: Phil Johnston
- * Author URI: https://github.com/NateWr
+ * Author URI: https://easydigitaldownloads.com
  * License: GNU General Public License v2.0 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
@@ -19,6 +19,7 @@
  * You should have received a copy of the GNU General Public License along with this program; if not, write
  * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
+ 
 if ( ! defined( 'ABSPATH' ) )
 	exit;
 
