@@ -27,7 +27,6 @@ function pj_edd_billing_address_tag_callback( $payment_id ) {
 	}
 	
 	$all_states = edd_get_shop_states( $user_address['country'] );
-	
 	$return .= $user_address['city'] . ' ' . $user_address['zip'] . ' ' . $all_states[$user_address['state']] . "\n";
 	
 	$all_countries = edd_get_country_list();
