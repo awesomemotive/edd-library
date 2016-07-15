@@ -17,11 +17,11 @@
 
 function edd_add_pdf_to_purchase_receipt( $attachments, $payment_id, $purchase_data ) {
 
-	$attachments = array();
+	$attachments   = array();
 	$attachments[] = WP_CONTENT_DIR . '/assets/pdf/file1.pdf';
 	$attachments[] = WP_CONTENT_DIR . '/assets/pdf/file2.pdf';
 
     return $attachments;
 
 }
-add_filter( 'edd_receipt_attachments', 'edd_add_pdf_to_purchase_receipt' );
+add_filter( 'edd_email_attachments', 'edd_add_pdf_to_purchase_receipt' );
