@@ -9,9 +9,9 @@ Snippets are organized into categories (folders) and each snippet is placed in i
 
 Most files in this library are set up to be WordPress plugins:
 
-1. Click on the filename of the snippet you'd like to use.
+1. Click on the filename of the snippet you'd like to use. Each file is set up to be a WordPress plugin.
 2. Click the "Raw" button (next to "Blame" and "History") at the top right.
-3. Save the page from your browser to your wp-content/plugins folder and upload to your server. Alternatively you can compress the file as a .zip file and upload as a plugin from within WordPress. 
+3. Save the page from your browser to your wp-content/plugins folder and upload to your server. Be sure to save it as a .php file and add it to a folder with the same name as the file (minus the .php). Alternatively you can compress the file as a .zip file and upload as a plugin from within WordPress. 
 4. Activate the plugin from the WordPress plugins page.
 
 For files that aren't set up as plugins follow steps 1 and 2 above and then copy and paste the code into your child theme's functions.php or place inside a custom functionality plugin.
