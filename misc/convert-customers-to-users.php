@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Easy Digital Downloads - Convert Customers to Users
  * Plugin URI: https://github.com/easydigitaldownloads/library
- * Description: Custom post types for Theme of the Crop.
+ * Description: Adds a tool to create user accounts for customers that don't already have them, and update the payments with the appropriate user id. 
  * Version: 1.0.0
  * Author: Nate Wright
  * Author URI: https://github.com/NateWr/
