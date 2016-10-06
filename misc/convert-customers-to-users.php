@@ -291,7 +291,7 @@ function eddccu_convert_customers() {
 					case 'info' :
 					case 'sales' :
 						$username = substr( $customer->email, strpos( $customer->email, '@' ) );
-						$username = substr( $username, 0, strpos( $customer->email, '.' ) );
+						$username = substr( $username, 1, strpos( $username, '.' ) - 1 );
 				}
 				$username = eddccu_get_available_username( $username );
 
