@@ -1,0 +1,373 @@
+<?php
+/**
+ * Plugin Name: Easy Digital Downloads - Convert Customers to Users
+ * Plugin URI: https://github.com/easydigitaldownloads/library
+ * Description: Custom post types for Theme of the Crop.
+ * Version: 1.0.0
+ * Author: Nate Wright
+ * Author URI: https://github.com/NateWr/
+ * License:     GNU General Public License v2.0 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * Text Domain: edd-convert-customers-to-users
+ * Domain Path: /languages/
+ *
+ * This program is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the License,
+ * or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * You should have received a copy of the GNU General Public License along with this program; if not, write
+ * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ */
+
+/**
+ * Add a Customers tab to Downloads > Tools
+ *
+ * @param array $tabs Key/value list of tabs
+ */
+function eddccu_add_tools_tab( $tabs ) {
+	$tabs['eddccu_customers'] = __( 'Customers', 'edd-convert-customers-to-users' );
+	return $tabs;
+}
+add_filter( 'edd_tools_tabs', 'eddccu_add_tools_tab' );
+
+/**
+ * Display the Customers tab content in Downloads > Tools
+ */
+function eddccu_display_tools_tab() {
+
+	if ( !current_user_can( 'manage_shop_settings' ) ) {
+		return;
+	}
+
+	?>
+		<div class="postbox">
+			<h3>
+				<?php _e( 'Convert Customers to Users', 'edd-convert-customers-to-users' ); ?>
+			</h3>
+			<div class="inside">
+				<p>
+					<?php _e( "This tool will create user accounts for any customers lacking accounts and connect their customer record and associated purchases with their user account. This is very slow because it hasn't been optimized well. So beware that it hasn't been tested on a live site where purchases are being made while the accounts are being updated. That could cause some data to not be processed properly.", 'edd-convert-customers-to-users' ); ?>
+				</p>
+				<?php wp_nonce_field( 'eddccu_convert_customers', 'eddccu_convert_customers' ); ?>
+				<?php submit_button( __( 'Convert', 'edd-convert-customers-to-users' ), 'secondary', 'eddccu-convert-button', false ); ?>
+				<div id="eddccu-progress-bar">
+					<span id="eddccu-progress"></span>
+					<span id="eddccu-progress-text"></span>
+				</div>
+				<ul id="eddccu-results">
+					<li>
+						<?php printf( __( '%s customers had no email and could not be converted to users.', 'eddccu-convert-button' ), '{{no_email}}' ); ?>
+					</li>
+					<li>
+						<?php printf( __( '%s customers were already connected to user accounts. Payment records were updated where necessary.', 'eddccu-convert-button' ), '{{user_id_attached}}' ); ?>
+					</li>
+					<li>
+						<?php printf( __( '%s customers had an email that matched an existing user. Customer and payment records were updated.', 'eddccu-convert-button' ), '{{user_email_match}}' ); ?>
+					</li>
+					<li>
+						<?php printf( __( '%s customers had new user accounts created. Customer and payment records were updated.', 'eddccu-convert-button' ), '{{user_created}}' ); ?>
+					</li>
+				</ul>
+			</div><!-- .inside -->
+		</div><!-- .postbox -->
+
+		<script type="text/javascript">
+
+			// Let's write some JavaScript in a PHP file cause that's fun
+			( function( $ ) {
+
+				if ( typeof $ === 'undefined' ) {
+					return;
+				}
+
+				$( '#eddccu-convert-button' ).click( function( e ) {
+					var no_email = 0,
+						user_id_attached = 0,
+						user_email_match = 0,
+						user_created = 0;
+
+					$( this ).hide();
+					$( '#eddccu-progress-bar' ).fadeIn();
+					$( '#eddccu-progress-text' ).text( '<?php _e( 'Initializing...', 'eddccu-convert-button' ); ?>' );
+
+					function eddccu_convert_batch( offset, total ) {
+
+						offset = offset || 0;
+
+						$.post(
+							ajaxurl,
+							$.param({
+								action: 'eddccu-convert',
+								nonce: $( '#eddccu_convert_customers').val(),
+								offset: offset,
+							}),
+							function( r ) {
+								var results_html;
+
+								if ( typeof r === 'undefined' || r.success === false ) {
+									var msg = '<?php _e( 'There was an unspecified error', 'eddccu-convert-button' ); ?>';
+									if ( typeof r.data != 'undefined' && typeof r.data.msg != 'undefined' ) {
+										msg = r.data.msg;
+									}
+									$( '#eddccu-progress-bar' ).after( '<div id="eddccu-error">' + msg + '</div>' );
+									$( '#eddccu-progress-text' ).text( r.data.done + '/' + total );
+									return false;
+								}
+
+								if ( r.data.no_email ) {
+									no_email += r.data.no_email;
+								}
+
+								if ( r.data.user_id_attached ) {
+									user_id_attached += r.data.user_id_attached;
+								}
+
+								if ( r.data.user_email_match ) {
+									user_email_match += r.data.user_email_match;
+								}
+
+								if ( r.data.user_created ) {
+									user_created += r.data.user_created;
+								}
+
+								if ( r.data.done && r.data.total ) {
+									$( '#eddccu-progress-text' ).text( r.data.done + '/' + r.data.total );
+								}
+
+								percent = r.data.done && r.data.total ? (r.data.done / r.data.total) * 100 : 0;
+								if ( percent ) {
+									$( '#eddccu-progress' ).css( 'width', percent + '%' );
+								}
+
+								if ( !r.data.complete ) {
+									eddccu_convert_batch( r.data.done, r.data.total );
+								} else {
+									results_html = $( '#eddccu-results' ).html();
+									results_html = results_html.replace( '{{no_email}}', no_email )
+										.replace( '{{user_id_attached}}', user_id_attached )
+										.replace( '{{user_email_match}}', user_email_match )
+										.replace( '{{user_created}}', user_created );
+									$( '#eddccu-results' ).html( results_html )
+										.show();
+								}
+							}
+						);
+					}
+
+					eddccu_convert_batch();
+				} );
+
+			} )( jQuery );
+		</script>
+
+		<style type-"text/css">
+			#eddccu-progress-bar {
+				display: none;
+				position: relative;
+				margin-top: 1em;
+				min-height: 2em;
+				border-radius: 0.25em;
+				background: rgba(0,0,0,0.1);
+			}
+			#eddccu-progress {
+				display: block;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				border-radius: 0.25em;
+				background: #0073aa;
+				transition: width 0.5s;
+			}
+			#eddccu-progress-text {
+				position: relative;
+				line-height: 2em;
+				margin-left: 0.5em;
+				color: #fff;
+			}
+			#eddccu-error {
+				color: red;
+			}
+			#eddccu-results {
+				display: none;
+				margin-top: 1em;
+				margin-left: 2em;
+				list-style: initial;
+			}
+		</style>
+	<?php
+}
+add_action( 'edd_tools_tab_eddccu_customers', 'eddccu_display_tools_tab' );
+
+/**
+ * Handle unauthenticated ajax requests
+ */
+function eddccu_nopriv_ajax() {
+	wp_send_json_error(
+		array(
+			'error' => 'loggedout',
+			'msg' => sprintf( __( 'You have been logged out. Please %slogin again%s.', 'eddccu-convert-button' ), '<a href="' . wp_login_url( admin_url( 'edit.php?post_type=download&page=edd-tools&tab=eddccu_customers' ) ) . '">', '</a>' ),
+		)
+	);
+}
+add_action( 'wp_ajax_nopriv_eddccu-convert' , array( $this , 'nopriv_ajax' ) );
+
+/**
+ * Handle authenticated ajax requests to convert customers
+ *
+ * The conversion is handled in small chunks. This function will be hit over
+ * and over again until the customers are converted or the user closes their
+ * browser.
+ */
+function eddccu_convert_customers() {
+
+	if ( !check_ajax_referer( 'eddccu_convert_customers', 'nonce' ) || !current_user_can( 'manage_shop_settings' ) ) {
+		eddccu_nopriv_ajax();
+	}
+
+	if ( !function_exists( 'EDD' ) ) {
+		wp_send_json_error(
+			array(
+				'error' => 'noedd',
+				'msg' => __( 'Easy Digital Downloads is not activated.', 'eddccu-convert-button' ),
+			)
+		);
+
+	}
+
+	$args = array(
+		// 10 customers at a time. This takes a crazy long time but it works for me
+		'number' => 10,
+	);
+
+	if ( !empty( $_POST['offset'] ) ) {
+		$args['offset'] = (int) $_POST['offset'];
+	}
+
+	$customer_count = EDD()->customers->count();
+	$customers = EDD()->customers->get_customers( $args );
+
+	$done = $args['offset']; // Customers processed
+	$no_email = 0; // Customers with no email address
+	$user_id_attached = 0; // Customers with user accounts
+	$user_email_match = 0; // Customers for whom an account exists in the system but it's not linked to their customer. It will be linked
+	$user_created = 0; // Customers for whom a user account was created
+	if ( !empty( $customers ) ) {
+		foreach( $customers as $customer_data ) {
+			$customer = new EDD_Customer( $customer_data->id );
+			$done++;
+
+			// No email address found
+			if ( empty( $customer->email ) ) {
+				$no_email++;
+				continue;
+			}
+
+			// Customers with user IDs
+			if ( !empty( $customer->user_id ) ) {
+				$user_id_attached++;
+				eddccu_update_customer_payments( $customer, $customer->user_id );
+				continue;
+			}
+
+			$user_id = email_exists( $customer->email );
+
+			// Attach customers to existing user accounts when found
+			if ( $user_id ) {
+				eddccu_update_customer( $customer, $user_id );
+				$user_email_match++;
+
+			// Create a user account for this customer and update customer
+			} else {
+				$username = substr( $customer->email, 0, strpos( $customer->email, '@' ) );
+
+				// Avoid some common usernames
+				switch ( $username ) {
+					case 'admin' :
+					case 'contact' :
+					case 'info' :
+					case 'sales' :
+						$username = substr( $customer->email, strpos( $customer->email, '@' ) );
+						$username = substr( $username, 0, strpos( $customer->email, '.' ) );
+				}
+				$username = eddccu_get_available_username( $username );
+
+				$user_id = wp_insert_user(
+					array(
+						'user_login' => $username,
+						'user_pass' => NULL,
+						'user_email' => $customer->email,
+						'first_name' => $customer->name,
+						'user_nicename' => substr( $customer->name, 0, 50 ),
+						'display_name' => $customer->name,
+					)
+				);
+
+				eddccu_update_customer( $customer, $user_id );
+				$user_created++;
+			}
+		}
+	}
+
+	wp_send_json_success(
+		array(
+			'done' => $done,
+			'total' => $customer_count,
+			'complete' => $done >= $customer_count,
+			'no_email' => $no_email,
+			'user_id_attached' => $user_id_attached,
+			'user_email_match' => $user_email_match,
+			'user_created' => $user_created,
+		)
+	);
+}
+add_action( 'wp_ajax_eddccu-convert' , 'eddccu_convert_customers' );
+
+/**
+ * Update a customer with a user ID
+ *
+ * @param EDD_Customer $customer The customer
+ * @param int $user_id The user ID to use for the payments
+ */
+function eddccu_update_customer( $customer, $user_id ) {
+
+	if ( empty( $user_id ) ) {
+		error_log( 'failure to update user details on customer ' . $customer->id . ' with user id ' . $user_id );
+	}
+
+	$success = $customer->update( array( 'user_id' => $user_id ) );
+
+	if ( empty( $success ) ) {
+		error_log( 'failure to update customer user id on customer' . $customer->id );
+	}
+
+	// Update payments
+	eddccu_update_customer_payments( $customer, $user_id );
+}
+
+/**
+ * Update all payments for a customer to include their user id
+ *
+ * @param EDD_Customer $customer The customer
+ * @param int $user_id The user ID to use for the payments
+ */
+function eddccu_update_customer_payments( $customer, $user_id ) {
+
+	$payments = $customer->get_payments();
+	foreach( $payments as $payment ) {
+		$payment->update_meta( '_edd_payment_user_id', $user_id );
+	}
+}
+
+/**
+ * Find a username that isn't taken
+ *
+ * @param string $username Username to check
+ */
+function eddccu_get_available_username( $username ) {
+	return !username_exists( $username ) ? $username : eddccu_get_available_username( $username . '1' );
+}
+
