@@ -15,6 +15,9 @@ Author URI: https://mintplugins.com/
  * An example of why you might use this: If you want to unlock/show a Vimeo/Youtube video only to customers who've purchased the product. 
  * For example, if you are setting up a video rental website, you could use this to display videos to customers after they purchase.
  *
+ * To add a corresponding field to your Vendor Submission form, <br />
+ * In EDD FES > Submission Form, add a field for the video URL with the meta_key set to "my_prefix_restricted_content".
+ *
  * @since	1.0.0
  * @param	string $content The content that will be shown for this post.
  * @return	string $content The content that will be shown for this post.
