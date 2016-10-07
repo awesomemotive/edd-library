@@ -24,7 +24,7 @@ Author URI: https://mintplugins.com/
  */
 function my_prefix_display_locked_video( $the_content ){
 	if ($GLOBALS['post']->post_type != 'download') {
-		return $content;
+		return $the_content;
 	}
 	
 	$restricted_content = '[edd_restrict id="' . $GLOBALS['post']->ID . '"]';
