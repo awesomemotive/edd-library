@@ -1,3 +1,13 @@
+<?php
+/*
+Plugin Name: Easy Digital Downloads - Disable recurring renewal notices for specific download
+Description: Allows renewal notice emails to be disabled for subscriptions including a certain download
+Version: 0.1
+Author: Easy Digital Downloads
+Author URI: https://easydigitaldownloads.com
+Contributors: easydigitaldownloads, brashrebel
+*/
+
 /**
 * Disable renewal emails for specific download
 */
