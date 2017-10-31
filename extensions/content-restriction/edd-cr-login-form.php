@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Easy Digital Downloads - Content Restriction - Show login form for logged out users
+ * Plugin Name: Easy Digital Downloads - Content Restriction - Showing the login form for logged out users
  * Description: Shows the [edd_login] form on restricted content for logged out users.
  * Author: John Parris
  */
