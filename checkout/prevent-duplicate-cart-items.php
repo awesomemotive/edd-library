@@ -6,7 +6,7 @@
  */
 function pw_edd_prevent_duplicate_cart_items( $download_id, $options ) {
 	if( edd_item_in_cart( $download_id, $options ) ) {
-		if( edd_is_ajax_enabled() ) {
+		if( edd_is_ajax_enabled() && defined('DOING_AJAX') && DOING_AJAX ) {
 			die('1');
 		} else {
 			wp_redirect( edd_get_checkout_uri() ); exit;
