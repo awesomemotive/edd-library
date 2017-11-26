@@ -1,9 +1,13 @@
+<?php
 /*
- * Adjust the commission rate for payments where the payment country matches the shop country for withholding tax purposes
- *
- * Reduces the commission amount by 30% (US Standard Withholding Amount)
- *
+ * Plugin Name: Commissions - Withholding Tax Example
+ * Description: Withhold 30% of each commission amount when the customer address matches the store country for withholding tax purposes.
+ * Author: David Sherlock
+ * Author URI: https://sellcomet.com/
+ * Version: 1.0.0
  */
+
+
 function ds_edd_adjust_commission_rate_for_withholding_tax( $recipient, $commission_amount, $rate, $download_id, $commission_id, $payment_id ) {
 
 	$payment      = new EDD_Payment( $payment_id );
