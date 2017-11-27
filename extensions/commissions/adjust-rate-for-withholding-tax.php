@@ -41,7 +41,7 @@ function ds_edd_adjust_commission_rate_for_withholding_tax( $recipient, $commiss
 		admin_url( 'edit.php?post_type=download&page=edd-commissions&payment=' . $payment_id )
 	);
 
-	$payment->add_note( $payment_id, $note );
+	$payment->add_note( $note );
 
 }
 add_action( 'eddc_insert_commission', 'ds_edd_adjust_commission_rate_for_withholding_tax', 10, 6 );
