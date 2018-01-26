@@ -30,4 +30,4 @@ function all_access_only_count_last_file( $should_be_counted, $all_access_pass, 
 	}
 
 }
-add_filter( 'edd_all_access_download_should_be_counted', 'only_count_last_file', 10, 6 );
+add_filter( 'edd_all_access_download_should_be_counted', 'all_access_only_count_last_file', 10, 6 );
