@@ -30,4 +30,4 @@ function all_access_weighted_downloads( $all_access_pass, $download, $requested_
 	}
 
 }
-add_filter( 'edd_all_access_download_being_counted_after', 'all_access_weighted_downloads', 10, 5 );
+add_action( 'edd_all_access_download_being_counted_after', 'all_access_weighted_downloads', 10, 5 );
