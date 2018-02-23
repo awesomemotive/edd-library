@@ -30,6 +30,4 @@ If there is a snippet you are unable to find and would like to propose get writt
 
 ## Notes
 
-This is not a tutorial archive. Please see the [tutorials section](https://easydigitaldownloads.com/docs/section/tutorials/) of the EDD website if you're looking for instructions on how to implement these snippets (and others).
-
 These snippets come with no guarantees. Due to the constant evolution of the EDD codebase, it is possible that the behavior of these snippets may change overtime. Find something broken? [Let us know](https://github.com/easydigitaldownloads/library/issues)!
