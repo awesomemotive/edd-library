@@ -5,16 +5,16 @@ This is a community-maintained repository of code snippets that help modify the 
 
 Snippets are organized into categories (folders) and each snippet is placed in its own file with a name that describes what it does.
 
+[View the full site here](http://library.easydigitaldownloads.com)
+
 ## Using Snippets
 
 Most files in this library are set up to be WordPress plugins:
 
-1. Click on the filename of the snippet you'd like to use. Each file is set up to be a WordPress plugin.
-2. Click the "Raw" button (next to "Blame" and "History") at the top right.
-3. Save the page from your browser to your wp-content/plugins folder and upload to your server. Be sure to save it as a .php file and add it to a folder with the same name as the file (minus the .php). Alternatively you can compress the file as a .zip file and upload as a plugin from within WordPress. 
+1. Navigate to the [EDD Library site](http://library.easydigitaldownloads.com).
+2. Browse and locate the snippet you'd like to use. Each file is set up to be a WordPress plugin.
+3. Copy the code snippet from the page and paste it into a new, empty WordPress plugin.
 4. Activate the plugin from the WordPress plugins page.
-
-For files that aren't set up as plugins follow steps 1 and 2 above and then copy and paste the code into your child theme's functions.php or place inside a custom functionality plugin.
 
 If you need help customising any of the snippets or do not understand how to use them, we recommend [hiring an EDD consultant](https://easydigitaldownloads.com/consultants/).
 
@@ -26,7 +26,7 @@ Please refer to the [Contributing guidelines](https://github.com/easydigitaldown
 
 ## Proposing a Snippet
 
-If there is a snippet you are unable to find and would like to propose get written, please open an [issue](https://github.com/easydigitaldownloads/library/issues) and describe your need.
+If there is a snippet you are unable to find and would like to propose get written, please open an [issue](https://github.com/easydigitaldownloads/library/issues) and describe your need. Please note that there is no guarantee that snippet requests will be honored.
 
 ## Notes
 
