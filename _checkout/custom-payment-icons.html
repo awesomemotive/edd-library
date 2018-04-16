@@ -1,0 +1,21 @@
+---
+layout: snippet
+title: Custom Payment Icon
+description: Register a custom payment icon to show on the checkout form.
+collection: checkout
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Custom Payment Icon
+ * Description: Register a custom payment icon to show on the checkout form.
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function pw_edd_payment_icon( $icons = array() ) {
+    $icons['url/to/your/image/icon.png'] = 'Name of the Payment Method';
+    return $icons;
+}
+add_filter( 'edd_accepted_payment_icons', 'pw_edd_payment_icon' );

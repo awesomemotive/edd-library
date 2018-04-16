@@ -1,0 +1,23 @@
+---
+layout: snippet
+title: Custom Cart Expiration
+description: Sets the cart expiration to a custom value.
+collection: checkout
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Custom Cart Expiration
+ * Description: Sets the cart expiration to a custom value (default: 48 hours).
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+/*
+ * Sets the cart expiration to 48 hours
+ */
+function pw_edd_set_cart_expiration( $seconds ) {
+	return 172800; // 48 hours in seconds
+}
+add_filter( 'wp_session_expiration','pw_edd_set_cart_expiration', 999990 );

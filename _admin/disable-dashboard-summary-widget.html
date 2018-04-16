@@ -1,0 +1,17 @@
+---
+layout: snippet
+title: Disable EDD Dashboard Widget
+description: Removes the EDD sales summary widget
+collection: admin
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Disable Dashboard Widget
+ * Description: Removes the EDD sales sumamry widget
+ * Author: Pippin Williamson
+ * Author URI: https://easydigitaldownloads.com
+ * Version: 1.0
+ */
+ 
+remove_action( 'wp_dashboard_setup', 'edd_register_dashboard_widgets', 10 );

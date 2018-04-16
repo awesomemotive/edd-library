@@ -1,0 +1,22 @@
+---
+layout: snippet
+title: Hide social login from checkout
+description: Good for when you are using it elsewhere on your website and do not want it showing at checkout
+collection: extensions
+category: social-login
+---
+
+<?php
+/**
+ * Plugin Name: Easy Digital Downloads - Hide social login from checkout
+ * Description: Good for when you are using it elsewhere on your website and do not want it showing at checkout
+ * Author: Andrew Munro
+ * Author URI: https://easydigitaldownloads.com
+ * Version: 1.0
+ */
+
+function sumobi_edd_remove_social_login_from_checkout() {
+	global $edd_slg_render;
+	remove_action( 'edd_checkout_form_top', array( $edd_slg_render, 'edd_slg_social_login_buttons' ) );
+}
+add_action( 'template_redirect', 'sumobi_edd_remove_social_login_from_checkout' );

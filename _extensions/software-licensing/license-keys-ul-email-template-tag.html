@@ -1,0 +1,58 @@
+---
+layout: snippet
+title: License Keys UL - Email Tag for Software Licensing
+description: Adds an email template tag called {license_keys_ul} which can be used to output an unordered list of the customer's purchased license keys.
+collection: extensions
+category: software-licensing
+---
+
+<?php
+/**
+ * Plugin Name: Easy Digital Downloads - License Keys UL - Email Tag for Software Licensing
+ * Description: Adds an email template tag called {license_keys_ul} which can be used to output an unordered list of the customer's purchased license keys.
+ * Author: Phil Johnston
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+ 
+if ( ! defined( 'ABSPATH' ) )
+	exit;
+
+function my_custom_sl_emails_initialize(){
+	
+	if ( class_exists( EDD_SL_Emails ) ){
+		
+		edd_add_email_tag( 'license_keys_ul', __( 'Show all purchased licenses in an unordered list', 'edd_sl' ), 'my_custom_license_keys_ul_tag' );	
+		
+	}
+	
+}
+add_action( 'init', 'my_custom_sl_emails_initialize' );
+
+function my_custom_license_keys_ul_tag( $payment_id = 0 ) {
+
+	$keys_output  = '<ul>';
+	$license_keys = edd_software_licensing()->get_licenses_of_purchase( $payment_id );
+
+	if( $license_keys ) {
+		foreach( $license_keys as $key ) {
+
+			$price_name  = '';
+			$download_id = edd_software_licensing()->get_download_id( $key->ID );
+			$price_id    = edd_software_licensing()->get_price_id( $key->ID );
+
+			if( $price_id ) {
+
+				$price_name = " - " . edd_get_price_option_name( $download_id, $price_id );
+
+			}
+
+			$keys_output .=  '<li>' . get_the_title( $download_id ) . $price_name . ": " . get_post_meta( $key->ID, '_edd_sl_key', true ) . '</li>';
+		}
+	}
+	
+	$keys_output .= '</ul>';
+
+	return $keys_output;
+
+}

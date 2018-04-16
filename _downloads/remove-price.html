@@ -1,0 +1,23 @@
+---
+layout: snippet
+title: Remove Price
+description: Removes the price from all add to cart buttons
+collection: downloads
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Remove Price
+ * Description: Removes the price from all add to cart buttons
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function pw_edd_remove_price( $args ) {
+	
+	$args['price'] = 'no';
+
+	return $args;
+}
+add_filter( 'edd_purchase_link_defaults', 'pw_edd_remove_price' );

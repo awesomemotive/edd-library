@@ -1,1 +1,35 @@
-theme: jekyll-theme-minimal
+title: Easy Digital Downloads Library
+author: Easy Digital Downloads
+description: Library of useful snippets for Easy Digital Downloads and extensions. Note that snippets are provided as is and not officially supported by Easy Digital Downloads.
+
+theme: minima
+markdown: kramdown
+highlighter: rouge
+
+# Social Links
+twitter_username: eddwp
+github_username: easydigitaldownloads
+facebook_username: eddwp
+
+collections:
+  pages:
+    output: true
+    permalink: /:path/
+  admin:
+    output: true
+  checkout:
+    output: true
+  downloads:
+    output: true
+  emails:
+    output: true
+  extensions:
+    output: true
+  misc:
+    output: true
+  shortcodes:
+    output: true
+  themes:
+    output: true
+  widgets:
+    output: true

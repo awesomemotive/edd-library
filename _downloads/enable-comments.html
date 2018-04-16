@@ -1,0 +1,20 @@
+---
+layout: snippet
+title: Enable Comments
+description: Adds comment support to the download post type
+collection: downloads
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Enable Comments
+ * Description: Adds comment support to the download post type
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function pw_edd_comments() {
+	add_post_type_support( 'download', 'comments' );
+}
+add_action( 'init', 'pw_edd_comments', 999 );

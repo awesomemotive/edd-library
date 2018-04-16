@@ -1,0 +1,25 @@
+---
+layout: snippet
+title: Reverse Receivers
+description: Reverses the receivers for PayPal Adaptive Payments
+collection: extensions
+category: paypal-adaptive-payments
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Reverse Receivers
+ * Description: Reverses the receivers for PayPal Adaptive Payments
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function edd_c_reverse_receivers( $receivers, $payment_id ) {
+
+	$receivers = explode( "\n", $receivers );
+	$receivers = implode( "\n", array_reverse( $receivers ) );
+
+	return $receivers;
+}
+add_filter( 'epap_adaptive_receivers', 'edd_c_reverse_receivers', 10, 2 );

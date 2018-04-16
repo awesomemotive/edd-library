@@ -1,0 +1,38 @@
+---
+layout: snippet
+title: Increase Memory Limit During Download Delivery
+description: Increase the memory limit of your server to support delivery of large downloads.
+collection: extensions
+category: software-licensing
+---
+
+<?php
+/**
+ * Plugin Name: Easy Digital Downloads - Increase Memory Limit During Download Delivery
+ * Description: Increase the memory limit of your server to support delivery of large downloads.
+ * Author: NateWr
+ * Author URI: https://github.com/NateWr
+ * Version: 1.0
+ */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+// Increase memory limit during regular download processes
+if ( !function_exists( 'eddiml_increase_memory_limit' ) ) {
+function eddiml_increase_memory_limit( $download, $email, $payment ) {
+
+	@ini_set( 'memory_limit', '256M' );
+
+}
+add_action( 'edd_process_verified_download', 'eddiml_increase_memory_limit', 10, 3 );
+} // endif
+
+// Increase memory limit during Software Licensing's API-based updates
+if ( !function_exists( 'eddsliml_increase_memory_limit' ) ) {
+function eddsliml_increase_memory_limit() {
+
+	@ini_set( 'memory_limit', '256M' );
+
+}
+add_action( 'edd_sl_before_package_download', 'eddsliml_increase_memory_limit' );
+} // endif

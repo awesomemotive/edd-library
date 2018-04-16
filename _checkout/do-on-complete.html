@@ -1,0 +1,22 @@
+---
+layout: snippet
+title: Do On Complete
+description: Execute code whenever an EDD purchase is complete.
+collection: checkout
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Do On Complete
+ * Description: Execute code whenever an EDD purchase is complete.
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function pw_edd_do_on_complete_purchase( $payment_id = 0 ) {
+	
+	// Execute your code here
+
+}
+add_action( 'edd_complete_purchase', 'pw_edd_do_on_complete_purchase' );

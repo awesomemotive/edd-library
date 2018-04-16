@@ -1,0 +1,20 @@
+---
+layout: snippet
+title: Remove Download Links
+description: Remove download links from checkout page for all downloads.
+collection: checkout
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Remove Download Links
+ * Description: Remove download links from checkout page for all downloads.
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function sumobi_edd_receipt_show_download_files() {
+	return false;
+}
+add_filter( 'edd_receipt_show_download_files', 'sumobi_edd_receipt_show_download_files' );

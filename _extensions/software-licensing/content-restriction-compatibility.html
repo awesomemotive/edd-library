@@ -1,0 +1,93 @@
+---
+layout: snippet
+title: Content Restriction Compatibility for Software Licensing
+description: Make the edd_restrict shortcode check if a license is expired before displaying content.
+collection: extensions
+category: software-licensing
+---
+
+<?php
+/**
+ * Plugin Name: Easy Digital Downloads - Content Restriction Compatibility for Software Licensing
+ * Description: Make the edd_restrict shortcode check if a license is expired before displaying content.
+ * Author: Phil Johnston
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+/**
+ * Check if the current user has a valid license for the $download_id passed-in.
+ *
+ * @param  array ( 'download' => Download/Item ID (post_id), 'price_id' => Price ID )
+ * @return bool true/false
+ */
+function edd_sl_current_user_has_valid_license_for( $download_ids ){
+	
+	// Get the current user ID
+	$current_user_id = get_current_user_id();
+	
+	// Set default for license validity to false
+	$license_valid_for_download = false;
+	
+	// Get the current user's purchases
+	$user_purchases = edd_get_users_purchases( $current_user_id );
+	
+	if( $user_purchases ) {
+	
+		foreach ( $user_purchases as $user_purchase ) {
+	
+			setup_postdata( $user_purchase );
+	
+			// Get all the licenses for all the user's purchases
+			$sl = edd_software_licensing();
+						
+			$licenses = $sl->get_licenses_of_purchase( $user_purchase->ID );
+			
+			if ( is_array( $licenses ) ){
+				foreach ( $licenses as $license_post ) {
+					
+					$license_key = get_post_meta( $license_post->ID, '_edd_sl_key', true );
+					
+					foreach( $download_ids as $download_id ){
+						if ( $sl->is_download_id_valid_for_license( $download_id['download'], $license_key ) ){
+							
+							$license_status = $sl->get_license_status( $license_post->ID );
+							
+							if ( $license_status != 'expired' && $license_post->post_status == 'publish' ){
+								
+								$license_valid_for_download = true;
+								break;
+								
+							}
+							
+						}
+					}
+					
+				}
+			}
+			wp_reset_postdata();
+		}
+	}
+	
+	return $license_valid_for_download;
+}
+
+/**
+ * Filter the edd_restrict shortcode to check if the user has a valid license in EDD Software Licensing.
+ *
+ * @param       string $content The content of the shortcode
+ * @param  		array ( 'download' => Download/Item ID (post_id), 'price_id' => Price ID )
+ * @param       array $atts The attributes to pass to the shortcode
+ * @return bool true/false
+ */
+function edd_sl_cr_restrict_shortcode_content( $content, $restricted_to, $atts ){
+	
+	if ( edd_sl_current_user_has_valid_license_for( $restricted_to ) ){
+		return $content; 
+	}
+	else{
+		return $atts['message'];
+	}
+		
+}
+add_filter( 'edd_cr_restrict_shortcode_content', 'edd_sl_cr_restrict_shortcode_content', 10, 3 );

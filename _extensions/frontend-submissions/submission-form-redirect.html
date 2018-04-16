@@ -1,0 +1,22 @@
+---
+layout: snippet
+title: Submission Form Redirect
+description: Filter the redirect URL for successful FES Submission Form submission
+collection: extensions
+category: frontend-submissions
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Submission Form Redirect
+ * Description: Filter the redirect URL for successful FES Submission Form submission
+ * Author: Sean Davis
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function sd_fes_submission_redirect( $response, $post_id, $form_id ) {
+	$response['redirect_to'] = 'http://SITEURL.com/';
+	return $response;
+}
+add_filter( 'fes_add_post_redirect', 'sd_fes_submission_redirect', 10, 3 );

@@ -1,0 +1,36 @@
+---
+layout: snippet
+title: Translate Products
+description: Code required to translate the word "Products".
+collection: extensions
+category: frontend-submissions
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Translate Products
+ * Description: Code required to translate the word "Products".
+ * Author: Phil Johnston
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function my_custom_fes_product_constant_plural_uppercase( $products_name ){
+	return 'Products'; // Replace this with your languages word for "Products"
+}
+add_filter( 'fes_product_constant_plural_uppercase', 'my_custom_fes_product_constant_plural_uppercase' );
+
+function my_custom_fes_product_constant_plural_lowercase( $products_name ){
+	return 'products'; // Replace this with your languages word for "products"
+}
+add_filter( 'fes_product_constant_plural_lowercase', 'my_custom_fes_product_constant_plural_lowercase' );
+
+function my_custom_fes_product_constant_singular_uppercase( $products_name ){
+	return 'Product'; // Replace this with your languages word for "Product"
+}
+add_filter( 'fes_product_constant_singular_uppercase', 'my_custom_fes_product_constant_singular_uppercase' );
+
+function my_custom_fes_product_constant_singular_lowercase( $products_name ){
+	return 'product'; // Replace this with your languages word for "product"
+}
+add_filter( 'fes_product_constant_singular_lowercase', 'my_custom_fes_product_constant_singular_lowercase' );

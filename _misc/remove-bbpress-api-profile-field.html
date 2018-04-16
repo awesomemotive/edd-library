@@ -1,0 +1,22 @@
+---
+layout: snippet
+title: Remove bbPress API Profile Field
+description: This will remove the API key settings from the bbPress profile editor
+collection: misc
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Remove bbPress API Profile Field
+ * Description: This will remove the API key settings from the bbPress profile editor
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function pw_edd_remove_bbpress_api_key_setting() {
+
+	remove_action( 'show_user_profile', 'edd_show_user_api_key_field', 10 );
+	remove_action( 'edit_user_profile', 'edd_show_user_api_key_field', 10 );
+}
+add_action( 'plugins_loaded', 'pw_edd_remove_bbpress_api_key_setting' );

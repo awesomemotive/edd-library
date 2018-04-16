@@ -1,0 +1,40 @@
+---
+layout: snippet
+title: Single Subscription
+description: Prevents customers from purchasing multiple subscriptions
+collection: extensions
+category: recurring-payments
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Single Subscription
+ * Description: Prevents customers from purchasing multiple subscriptions
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+if ( ! defined( 'ABSPATH' ) )
+	exit;
+
+function pw_edd_recurring_limit_one_subscription( $valid_data, $post_data ) {
+	
+	if( ! class_exists( 'EDD_Recurring_Customer' ) ) {
+		return;
+	}
+
+	if( ! is_user_logged_in() ) {
+		return;
+	}
+
+	$purchase_data = array(
+		'downloads' => edd_get_cart_contents()
+	);
+
+	if( EDD_Recurring_Customer::is_customer_active() && EDD_Recurring()->is_purchase_recurring( $purchase_data ) ) {
+		edd_set_error( 'edd-one-subscription', __( 'You already have an active subscription so may not purchase a second one.', 'edd' ) );
+	}
+
+}
+add_action( 'edd_checkout_error_checks', 'pw_edd_recurring_limit_one_subscription' );

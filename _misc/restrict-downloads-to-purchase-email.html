@@ -1,0 +1,44 @@
+---
+layout: snippet
+title: Restrict Downloads to Purchase Email
+description: Force users to be logged-in to download purchased files through Easy Digital Downloads and also require the account email match the purchase email
+collection: misc
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Restrict Downloads to Purchase Email
+ * Description:
+ * Author: Pippin Williamson
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+class EDD_Force_Login_And_Email {
+
+	function __construct() {
+		add_action( 'plugins_loaded', array( $this, 'load' ) );
+	}
+
+	public function load() {
+		add_filter( 'edd_file_download_has_access', array( $this, 'check_access' ), 9999, 3 );
+	}
+
+	public function check_access( $has_access, $payment, $args ) {
+
+		if( ! is_user_logged_in() ) {
+			$has_access = false;
+		}
+
+		$customer = new EDD_Customer( edd_get_payment_customer_id( $payment ) );
+
+		if( ! in_array( $args['email'], $customer->emails ) ) {
+			$has_access = false;
+		}
+
+		return $has_access;
+
+	}
+
+}
+$GLOBALS['edd_force_login_and_email'] = new EDD_Force_Login_And_Email();

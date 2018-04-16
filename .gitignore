@@ -1,1 +1,5 @@
 .DS_Store
+.site/
+.idea/
+.sass-cache/
+_config_local.yml

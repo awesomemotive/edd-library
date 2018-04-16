@@ -1,0 +1,26 @@
+---
+layout: snippet
+title: Change Vendor Delete Product Redirect
+description: This plugin changes the destination that vendors are redirected to when they delete a product.
+collection: extensions
+category: frontend-submissions
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Change Vendor Delete Product Redirect
+ * Description: This plugin changes the destination that vendors are redirected to when they delete a product.
+ * Author: Kyle Maurer
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function kjm_change_vendor_delete_product_redirect() {
+	$redirect_to = get_permalink( EDD_FES()->helper->get_option( 'fes-vendor-dashboard-page', false ) );
+	$redirect_to = add_query_arg( array(
+			'task' => 'products'
+		), $redirect_to );
+	wp_redirect( $redirect_to );
+	exit;
+}
+add_action( 'fes_vendor_delete_product', 'kjm_change_vendor_delete_product_redirect' );

@@ -1,0 +1,23 @@
+---
+layout: snippet
+title: Non-required Card State
+description: Makes the cart state a non-required field when present
+collection: checkout
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Non-required Card State
+ * Description: Makes the cart state a non-required field when present
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function pw_edd_remove_state_from_required_fields( $fields ) {
+	if( array_key_exists( 'card_state', $fields ) ) {
+		unset( $fields['card_state'] );
+	}
+	return $fields;
+}
+add_filter( 'edd_purchase_form_required_fields', 'pw_edd_remove_state_from_required_fields' );

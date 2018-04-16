@@ -1,0 +1,42 @@
+---
+layout: snippet
+title: Variable Pricing License Expiration
+description: Set the expiration time for licenses per price option
+collection: extensions
+category: software-licensing
+---
+
+<?php
+/**
+ * Plugin Name: Easy Digital Downloads - Variable Pricing License Expiration
+ * Description: Set the expiration time for licenses per price option
+ * Author: Pippin Williamson
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.1
+ */
+
+function pw_edd_sl_license_length( $expiration, $payment_id, $download_id, $license_id ) {
+
+	$price_id = edd_software_licensing()->get_price_id( $license_id );
+
+	if( $price_id !== false ) {
+
+		switch( $price_id ) {
+
+			case 1:
+				$expiration = '+10 years';
+				break;
+			case 2:
+				$expiration = '+2 years';
+				break;
+			case 3:
+				$expiration = '+1 year';
+				break;
+		}
+
+	}
+
+	return $expiration;
+
+}
+add_filter( 'edd_sl_license_exp_length', 'pw_edd_sl_license_length', 10, 4 );

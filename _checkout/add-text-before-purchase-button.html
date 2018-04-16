@@ -1,0 +1,20 @@
+---
+layout: snippet
+title: Add Custom Text Before Purchase Button
+description: Add custom text just before the "Purchase" button at checkout
+collection: checkout
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Add Custom Text Before Purchase Button
+ * Description: Add custom text just before the "Purchase" button at checkout
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function sumobi_edd_purchase_form_before_submit() { ?>
+	<p>Your custom text</p>
+<?php }
+add_action( 'edd_purchase_form_before_submit', 'sumobi_edd_purchase_form_before_submit', 1000 );

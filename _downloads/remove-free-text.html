@@ -1,0 +1,23 @@
+---
+layout: snippet
+title: Remove Free Text
+description: Remove the word "free" from free products
+collection: downloads
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Remove Free Text
+ * Description: Remove the word "free" from free products
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function pw_edd_remove_free( $form, $args ) {
+	
+	$form = str_replace( 'Free&nbsp;&ndash;&nbsp;Add to Cart', 'Add to Cart' , $form );
+
+	return $form;
+}
+add_filter( 'edd_purchase_download_form', 'pw_edd_remove_free', 10, 2 );

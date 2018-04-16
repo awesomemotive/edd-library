@@ -1,0 +1,22 @@
+---
+layout: snippet
+title: Force Billing Address
+description: This plugin forces the billing address to always be collected at checkout
+collection: checkout
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Force Billing Address
+ * Description: This plugin forces the billing address to always be collected at checkout
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function pw_edd_force_billing_address() {
+	if( ! did_action( 'edd_after_cc_fields', 'edd_default_cc_address_fields' ) ) {
+		edd_default_cc_address_fields();
+	}
+}
+add_action( 'edd_purchase_form_after_cc_form', 'pw_edd_force_billing_address' );

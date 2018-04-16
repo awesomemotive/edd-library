@@ -1,0 +1,26 @@
+---
+layout: snippet
+title: Redirect non-files
+description: Redirects customers to page URL instead of trying to download the page as a file
+collection: misc
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Redirect non-files
+ * Description: Redirects customers to page URL instead of trying to download the page as a file
+ * Author: Pippin Williamson
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function pw_edd_redirect_non_file( $requested_file, $download_files, $file_key ) {
+
+	if( ! edd_get_file_extension( $requested_file ) ) {
+		wp_redirect( $requested_file ); exit;
+	}
+
+	return $requested_file;
+
+}
+add_filter( 'edd_requested_file', 'pw_edd_redirect_non_file', 10, 4 );

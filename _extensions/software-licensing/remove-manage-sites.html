@@ -1,0 +1,23 @@
+---
+layout: snippet
+title: Remove Manage Sites
+description: Removes the Manage Sites column from the licenses table on customer purchase history page
+collection: extensions
+category: software-licensing
+---
+
+<?php
+/**
+ * Plugin Name: Easy Digital Downloads - Remove Manage Sites
+ * Description: Removes the Manage Sites column from the licenses table on customer purchase history page
+ * Author: Kyle Maurer
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function kjm_remove_manage_sites_link() {
+	if ( isset( $_GET['action'] ) && $_GET['action'] == 'manage_licenses' ) {
+		add_filter( 'edd_sl_force_activation_increase', '__return_true' );
+	}
+}
+add_action( 'wp_head', 'kjm_remove_manage_sites_link' );

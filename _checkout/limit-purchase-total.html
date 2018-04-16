@@ -1,0 +1,24 @@
+---
+layout: snippet
+title: Limit Purchase Total
+description: Sets a purchase amount and prevents customers from purchasing more than that amount at one time.
+collection: checkout
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Limit Purchase Total
+ * Description: Sets a purchase amount and prevents customers from purchasing more than that amount at one time.
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function pw_edd_limit_total_purchase( $valid_data, $post_data ) {
+	
+	if( edd_get_cart_total() > 100 ) {
+		edd_set_error( 'too_much', 'You cannot purchase that much at one time.' );
+	}
+
+}
+add_action( 'edd_checkout_error_checks', 'pw_edd_limit_total_purchase' );

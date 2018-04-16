@@ -1,0 +1,21 @@
+---
+layout: snippet
+title: Enable Revisions
+description: Enable revisions on the downloads post type. Note this will be added into core from EDD v2.0
+collection: downloads
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Enable Revisions
+ * Description: Enable revisions on the downloads post type. Note this will be added into core from EDD v2.0
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function sumobi_edd_modify_edd_download_supports( $supports ) {
+	$supports[] = 'revisions';
+	return $supports;	
+}
+add_filter( 'edd_download_supports', 'sumobi_edd_modify_edd_download_supports' );

@@ -1,0 +1,22 @@
+---
+layout: snippet
+title: Exclude downloads from search
+description: Exclude downloads from showing in search results
+collection: downloads
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Exclude downloads from search
+ * Description: Exclude downloads from showing in search results
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function sumobi_download_post_type_args( $download_args ) {
+	$download_args['exclude_from_search'] = true;
+
+	return $download_args;
+}
+add_filter( 'edd_download_post_type_args', 'sumobi_download_post_type_args' );

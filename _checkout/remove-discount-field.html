@@ -1,0 +1,20 @@
+---
+layout: snippet
+title: Remove Discount Field
+description: Removes the Discount Code field from the checkout form.
+collection: checkout
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Remove Discount Field
+ * Description: Removes the Discount Code field from the checkout form.
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function pw_edd_remove_discount_field() {
+	remove_action( 'edd_checkout_form_top', 'edd_discount_field', -1 );
+}
+add_action( 'init', 'pw_edd_remove_discount_field' );

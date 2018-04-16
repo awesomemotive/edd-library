@@ -1,0 +1,20 @@
+---
+layout: snippet
+title: Price Option Not Checked
+description: Prevent variable pricing options from being checked by default
+collection: downloads
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Price Option Not Checked
+ * Description: Prevent variable pricing options from being checked by default
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function sumobi_edd_price_option_checked( $checked, $download_id, $key ) {
+	return '';
+}
+add_filter( 'edd_price_option_checked', 'sumobi_edd_price_option_checked', 10, 3 );

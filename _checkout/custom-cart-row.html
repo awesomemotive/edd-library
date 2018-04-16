@@ -1,0 +1,24 @@
+---
+layout: snippet
+title: Custom Cart Row
+description: Provides a function which can be modified to add a custom row of HTML to the checkout shopping cart.
+collection: checkout
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Custom Cart Row
+ * Description: Provides a function which can be modified to add a custom row of HTML to the checkout shopping cart.
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function edd_custom_cart_row_text() {
+?>
+	<tr>
+		<td colspan="4">This is your custom text</td>
+	</tr>
+<?php
+}
+add_action( 'edd_cart_items_after', 'edd_custom_cart_row_text' );

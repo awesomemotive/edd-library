@@ -1,0 +1,17 @@
+---
+layout: snippet
+title: Disable New User Notifications
+description: Disable the new user notification email for both admin and user
+collection: emails
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Disable New User Notifications
+ * Description: Disable the new user notification email for both admin and user
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+remove_action( 'edd_insert_user', 'edd_new_user_notification', 10, 2 );

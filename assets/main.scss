@@ -1,0 +1,28 @@
+---
+---
+
+@import "minima";
+
+.site-nav .page-link {
+  padding: 14px 10px;
+  margin: 0;
+  font-size: 0.8em;
+}
+.site-nav .page-link:hover {
+  text-decoration: none;
+  background-color: #ebebeb;
+}
+.site-nav .page-link:not(:last-child) {
+  margin-right: 0;
+}
+
+// Override widths for footer columns
+.footer-col-2 {
+  width: -webkit-calc(25% - (30px / 2));
+  width: calc(25% - (30px / 2));
+}
+
+.footer-col-3 {
+  width: -webkit-calc(40% - (30px / 2));
+  width: calc(40% - (30px / 2));
+}

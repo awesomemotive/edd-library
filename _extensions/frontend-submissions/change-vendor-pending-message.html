@@ -1,0 +1,21 @@
+---
+layout: snippet
+title: Change Vendor Pending Message
+description: Changes the message shown to vendors when their account is pending.
+collection: extensions
+category: frontend-submissions
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Change Vendor Pending Message
+ * Description: Changes the message shown to vendors when their account is pending.
+ * Author: Kyle Maurer
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function kjm_change_vendor_pending_message() {
+	return 'My new message!';
+}
+add_action( 'fes_application_pending_message', 'kjm_change_vendor_pending_message' );

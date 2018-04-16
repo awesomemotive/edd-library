@@ -1,0 +1,33 @@
+---
+layout: snippet
+title: Company Field on Receipt
+description: Outputs the "Company" on the payment receipt.
+collection: extensions
+category: checkout-fields-manager
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Company Field on Receipt
+ * Description: Outputs the "Company" on the payment receipt.
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function pw_cfm_company_field( $payment, $edd_receipt_args ) {
+
+	/*
+	 * TODO
+	 *
+	 * 1. Replace field label as appropriate
+	 * 2. Replace "company" with the meta_key entered in Checkout Fields Manager
+	 */
+?>
+	<tr>
+		<td><strong><?php _e( 'Company', 'edd' ); ?>:</strong></td>
+		<td><?php echo get_post_meta( $payment->ID, 'company', true ); ?></td>
+	</tr>
+<?php
+}
+add_action( 'edd_payment_receipt_after', 'pw_cfm_company_field', 10, 2 );
