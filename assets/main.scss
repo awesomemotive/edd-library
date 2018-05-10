@@ -3,26 +3,60 @@
 
 @import "minima";
 
+// Header styles
 .site-nav .page-link {
   padding: 14px 10px;
   margin: 0;
   font-size: 0.8em;
+  color: #c4d0d6;
 }
 .site-nav .page-link:hover {
   text-decoration: none;
-  background-color: #ebebeb;
+  color: #fff;
 }
 .site-nav .page-link:not(:last-child) {
   margin-right: 0;
 }
-
-// Override widths for footer columns
-.footer-col-2 {
-  width: -webkit-calc(25% - (30px / 2));
-  width: calc(25% - (30px / 2));
+.site-header {
+  background: #1d2428;
+  color: #c4d0d6;
+}
+.site-title img {
+  padding-top: 10px;
 }
 
-.footer-col-3 {
-  width: -webkit-calc(40% - (30px / 2));
-  width: calc(40% - (30px / 2));
+// Override widths for footer columns
+@media screen and (min-width: 801px) {
+  .footer-col-2 {
+    width: -webkit-calc(25% - (30px / 2));
+    width: calc(25% - (30px / 2));
+  }
+
+  .footer-col-3 {
+    width: -webkit-calc(40% - (30px / 2));
+    width: calc(40% - (30px / 2));
+  }
+}
+
+// Footer styling
+.edd {
+  background: url("ed-3.png") no-repeat scroll center bottom;
+  height: 193px;
+}
+footer {
+  background: #1d2428;
+  color: #c4d0d6;
+  a {
+    color: #c4d0d6;
+    &:visited {
+      color: #c4d0d6;
+    }
+    &:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+  .social-media-list a:hover {
+    text-decoration: none;
+  }
 }
