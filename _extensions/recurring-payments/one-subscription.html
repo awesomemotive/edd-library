@@ -37,4 +37,4 @@ function pw_edd_recurring_limit_one_subscription( $valid_data, $post_data ) {
 	}
 
 }
-add_action( 'edd_checkout_error_checks', 'pw_edd_recurring_limit_one_subscription' );
+add_action( 'edd_checkout_error_checks', 'pw_edd_recurring_limit_one_subscription', 10, 2 );
