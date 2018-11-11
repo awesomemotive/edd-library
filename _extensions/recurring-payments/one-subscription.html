@@ -32,7 +32,10 @@ function pw_edd_recurring_limit_one_subscription( $valid_data, $post_data ) {
 		'downloads' => edd_get_cart_contents()
 	);
 
-	if( EDD_Recurring_Customer::is_customer_active() && EDD_Recurring()->is_purchase_recurring( $purchase_data ) ) {
+	$subscriber = new EDD_Recurring_Subscriber( get_current_user_id(), true );
+	$existing = $subscriber->has_active_subscription();
+
+	if( $existing && EDD_Recurring()->is_purchase_recurring( $purchase_data ) ) {
 		edd_set_error( 'edd-one-subscription', __( 'You already have an active subscription so may not purchase a second one.', 'edd' ) );
 	}
 
