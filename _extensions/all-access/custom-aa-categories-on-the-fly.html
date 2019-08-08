@@ -13,16 +13,16 @@ category: all-access
  * Author: Phil Johnston
  * Version: 1.0
  */
- 
+
 function my_custom_aa_categories( $included_categories, $all_access_pass_object ) {
 
- $download_id = $all_access_pass_object->download_id;
- $price_id = $all_access_pass_object->price_id;
+	$download_id = $all_access_pass_object->download_id;
+	$price_id = $all_access_pass_object->price_id;
 
- if ( 123 === $download_id ) {
-  $included_categories = array( 1, 2, 3 );
- }
+	if ( 123 === $download_id ) {
+		$included_categories = array( 1, 2, 3 );
+	}
 
- return $included_categories;
+	return $included_categories;
 }
 add_filter( 'edd_all_access_included_categories', 'my_custom_aa_categories' );
