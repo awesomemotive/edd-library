@@ -1,0 +1,30 @@
+---
+layout: snippet
+title: Enable Downoads in the WP REST API
+description: Enable the download products to show in the WP REST API
+collection: downloads
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Enable downloads in WP REST API
+ * Description: Enable the download products to show in the WP REST API
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+ /**
+ * Adds additional arguments into the post type registration for downloads.
+ *
+ * @param array $download_args The existing array of arguments.
+ *
+ * @return array
+ */
+function eddwp_add_rest_for_dls( $download_args ) {
+	$download_args['show_in_rest'] = true;
+	$download_args['rest_base'] = 'downloads';
+
+	return $download_args;
+}
+add_filter( 'edd_download_post_type_args', 'eddwp_add_rest_for_dls', 10, 1 );
