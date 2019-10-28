@@ -1,0 +1,165 @@
+---
+layout: snippet
+title: Simple Chained Products
+description: Enables a chained products setting on the Download product edit screen for automatically adding "chained" products to the cart when the parent product is added.
+collection: checkout
+---
+<?php
+/*
+Plugin Name: Easy Digital Downloads - Simple Chanined Products
+Plugin URI: https://easydigitaldownloads.com/
+Description: Simple chained products for Easy Digital Downloads
+Version: 1.0.1
+Author: Easy Digital Downloads
+Author URI: https://easydigitaldownloads.com
+*/
+
+/**
+ * EDD_Chained_Products Class
+ *
+ * @since 1.0.0
+ */
+class EDD_Chained_Products {
+
+	public function __construct() {
+
+		// Actions
+		add_action( 'init', array( $this, 'textdomain' ) );
+		add_action( 'edd_post_add_to_cart', array( $this, 'maybe_add_chained_product' ), 10, 3 );
+		add_action( 'edd_meta_box_settings_fields', array( $this, 'download_chained_setting' ), 100 );
+
+		// Filters
+		add_filter( 'edd_metabox_fields_save', array( $this, 'save_meta' ) );
+	}
+
+	/**
+	 * Set up the text domains for translation.
+	 *
+	 * @since  1.0.0
+	 * @return void
+	 */
+	public function textdomain() {
+
+		// Set filter for plugin's languages directory.
+		$lang_dir = dirname( plugin_basename( __FILE__ ) ) . '/languages/';
+		$lang_dir = apply_filters( 'edd_chained_products_languages_directory', $lang_dir );
+
+		// Traditional WordPress plugin locale filter.
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'edd-chained-products' );
+		$mofile = sprintf( '%1$s-%2$s.mo', 'edd-chained-products', $locale );
+
+		// Setup paths to current locale file.
+		$mofile_local  = $lang_dir . $mofile;
+		$mofile_global = WP_LANG_DIR . '/edd-chained-products/' . $mofile;
+
+		if ( file_exists( $mofile_global ) ) {
+			load_textdomain( 'edd-chained-products', $mofile_global );
+		} elseif ( file_exists( $mofile_local ) ) {
+			load_textdomain( 'edd-chained-products', $mofile_local );
+		} else {
+			// Load the default language files.
+			load_plugin_textdomain( 'edd-chained-products', false, $lang_dir );
+		}
+
+	}
+
+	/**
+	 * Add chained products to the cart if present
+	 *
+	 * @since  1.0.0
+	 * @return void
+	 */
+	public function maybe_add_chained_product( $download_id, $options, $items ) {
+
+		$chained_products = get_post_meta( $download_id, '_edd_chained_products', true );
+
+		if ( $chained_products && is_array( $chained_products ) ) {
+
+			foreach ( $chained_products as $download_id ) {
+
+				$has_variation = strpos( $download_id, '_' );
+
+				if ( false !== $has_variation ) {
+
+					$price_id    = substr( $download_id, $has_variation + 1, strlen( $download_id ) );
+					$download_id = substr( $download_id, 0, $has_variation );
+					$options     = array( 'price_id' => $price_id );
+
+					if( ! edd_item_in_cart( $download_id, $options ) ) {
+
+						edd_add_to_cart( $download_id, $options );
+
+					}
+
+				} else {
+
+					edd_add_to_cart( $download_id );
+
+				}
+
+			}
+
+		}
+
+	}
+
+	/**
+	 * Output our Chained Product settings
+	 *
+	 * @since  1.0.0
+	 * @return void
+	 */
+	public function download_chained_setting( $download_id ) {
+
+		if( ! current_user_can( 'manage_shop_settings' ) ) {
+			return;
+		}
+
+		$chained_products = get_post_meta( $download_id, '_edd_chained_products', true );
+	?>
+		<div id="edd_download_chained_products">
+			<p>
+				<strong><?php _e( 'Chained Products', 'edd-chained-products' ); ?></strong>
+				<span alt="f223" class="edd-help-tip dashicons dashicons-editor-help" title="<?php _e( '<strong>Chained Products</strong>: These are products that will be added to the cart along with this Download product.', 'edd-chained-products' ); ?>"></span>
+			</p>
+			<label for="edd_chained_products">
+				<?php echo EDD()->html->product_dropdown( array(
+					'name'       => '_edd_chained_products[]',
+					'selected'   => $chained_products,
+					'variations' => true,
+					'multiple'   => true,
+					'chosen'     => true
+				) ); ?>
+				<?php _e( 'Select chained products', 'edd-chained-products' ); ?>
+			</label>
+		</div>
+	<?php
+	}
+
+	/**
+	 * Save our Chained Product metadata
+	 *
+	 * @since  1.0.0
+	 * @return void
+	 */
+	public function save_meta( $fields ) {
+
+		$fields[] = '_edd_chained_products';
+		return $fields;
+	}
+
+}
+
+/**
+ * Load our plugin.
+ *
+ * @since  1.0.0
+ * @return void
+ */
+function edd_chained_products_load() {
+
+	$instance = new EDD_Chained_Products();
+	unset( $instance );
+
+}
+add_action( 'plugins_loaded', 'edd_chained_products_load', 12 );
