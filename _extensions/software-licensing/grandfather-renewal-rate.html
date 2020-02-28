@@ -12,20 +12,16 @@ category: software-licensing
  * Description: Allows a custom renewal discount to be set for customers who purchased before a custom date
  * Author: Pippin Williamson
  * Author URI: https://easydigitaldownloads.com
- * Version: 1.0
+ * Version: 1.1
  */
-
 /*
  * Sets renewal discount to 40% for any customer that purchased before April 18, 2016
  */
 function pw_edd_grandfather_renewal_discount( $renewal_discount, $license_id ) {
-
-	$license = get_post( $license_id );
-
-	if( strtotime( $license->post_date ) < strtotime( 'April 18, 2016' ) ) {
+	$license = edd_software_licensing()->get_license( $license_id );
+	if( strtotime( $license->date_created ) < strtotime( 'January 1, 2020' ) ) {
 		$renewal_discount = 40;
 	}
-
 	return $renewal_discount;
 }
 add_filter( 'edd_sl_renewal_discount_percentage', 'pw_edd_grandfather_renewal_discount', 10, 2 );
