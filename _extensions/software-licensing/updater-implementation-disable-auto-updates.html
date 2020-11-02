@@ -1,0 +1,27 @@
+---
+layout: sample
+title: Updater Implementation for WordPress Plugins -- Disable Auto-Updates
+description: Disable auto-updates for a plugin or theme.
+collection: extensions
+category: software-licensing
+---
+
+<?php
+
+add_filter( 'auto_update_plugin', 'edd_sample_disable_plugin_autoupdates', 10, 2 );
+function edd_sample_disable_plugin_autoupdates( $update, $plugin ) {
+	if ( 'my-plugin/my-plugin.php' === $plugin->plugin ) {
+		return false;
+	}
+
+	return $update;
+}
+
+add_filter( 'auto_update_theme', 'edd_sample_disable_theme_autoupdates', 10, 2 );
+function edd_sample_disable_theme_autoupdates( $update, $theme ) {
+	if ( 'my-theme' === $theme->theme ) {
+		return false;
+	}
+
+	return $update;
+}

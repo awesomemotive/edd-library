@@ -1,0 +1,70 @@
+---
+layout: sample
+title: Updater Implementation for WordPress Plugins -- Instantiating the Updater Class
+description: Sample code to illustrate how to instantiate the Software Licensing plugin updater class in your plugin.
+collection: extensions
+category: software-licensing
+---
+
+<?php
+
+/*
+Plugin Name: Sample Plugin
+Plugin URI: http://pippinsplugins.com/
+Description: Illustrates how to include an updater in your plugin for EDD Software Licensing
+Author: Pippin Williamson
+Author URI: http://pippinsplugins.com
+Version: 1.0
+License: GNU General Public License v2.0 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+/**
+ * For further details please visit https://docs.easydigitaldownloads.com/article/383-automatic-upgrades-for-wordpress-plugins
+ */
+
+// this is the URL our updater / license checker pings. This should be the URL of the site with EDD installed
+define( 'EDD_SAMPLE_STORE_URL', 'http://easydigitaldownloads.com' ); // you should use your own CONSTANT name, and be sure to replace it throughout this file
+
+// the download ID for the product in Easy Digital Downloads
+define( 'EDD_SAMPLE_ITEM_ID', 123 ); // you should use your own CONSTANT name, and be sure to replace it throughout this file
+
+// the name of the product in Easy Digital Downloads
+define( 'EDD_SAMPLE_ITEM_NAME', 'Sample Plugin' ); // you should use your own CONSTANT name, and be sure to replace it throughout this file
+
+// the name of the settings page for the license input to be displayed
+define( 'EDD_SAMPLE_PLUGIN_LICENSE_PAGE', 'pluginname-license' );
+
+if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
+	// load our custom updater
+	include dirname( __FILE__ ) . '/EDD_SL_Plugin_Updater.php';
+}
+
+/**
+ * Initialize the updater. Hooked into `init` to work with the
+ * wp_version_check cron job, which allows auto-updates.
+ */
+function edd_sl_sample_plugin_updater() {
+
+	// To support auto-updates, this needs to run during the wp_version_check cron job for privileged users.
+	$doing_cron = defined( 'DOING_CRON' ) && DOING_CRON;
+	if ( ! current_user_can( 'manage_options' ) && ! $doing_cron ) {
+		return;
+	}
+
+	// retrieve our license key from the DB
+	$license_key = trim( get_option( 'edd_sample_license_key' ) );
+
+	// setup the updater
+	$edd_updater = new EDD_SL_Plugin_Updater( EDD_SAMPLE_STORE_URL, __FILE__,
+		array(
+			'version' => '1.0',                    // current version number
+			'license' => $license_key,             // license key (used get_option above to retrieve from DB)
+			'item_id' => EDD_SAMPLE_ITEM_ID,       // ID of the product
+			'author'  => 'Easy Digital Downloads', // author of this plugin
+			'beta'    => false,
+		)
+	);
+
+}
+add_action( 'init', 'edd_sl_sample_plugin_updater' );
