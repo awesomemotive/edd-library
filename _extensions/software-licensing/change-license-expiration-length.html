@@ -1,0 +1,24 @@
+layout: snippet
+title: Changing License Expiration Length
+description: With Software Licensing the license length (time to expire) can be easily changed via a simple filter. This example snippet will illustrate how to change the length of licenses, and also show how to conditionally change it based on the product that the license is being generated for.
+collection: extensions
+category: software-licensing
+---
+
+<?php
+/**
+ * Plugin Name: Easy Digital Downloads - Change License Expiration Length
+ * Description: Changes the length of licenses
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+function pw_edd_license_length( $length, $payment_id, $download_id, $license_id ) {
+	
+	if( $download_id == 14 )
+		return '+2 year'; // give a 2 year expiration for product ID 14
+
+	return '+1 year'; // this is default
+}
+add_filter( 'edd_sl_license_exp_length', 'pw_edd_license_length', 10, 4 );
