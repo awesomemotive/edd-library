@@ -1,0 +1,45 @@
+---
+layout: snippet
+title: Disable Renewals for Specific Products
+description: Prevents license keys for certain downloads from being renewed or extended.
+collection: extensions
+category: software-licensing
+---
+
+<?php
+/**
+ * Plugin Name: Easy Digital Downloads - Disable Renewals for Specific Products
+ * Description: Prevents license keys for certain downloads from being renewed or extended.
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+/**
+ * Prevent licenses from being renewed for certain products.
+ *
+ * @param bool $can_renew
+ * @param int  $license_id
+ *
+ * @return bool
+ */
+function ag_edd_sl_can_renew( $can_renew, $license_id ) {
+	// Bail if they already can't renew.
+	if ( ! $can_renew ) {
+		return $can_renew;
+	}
+
+	$license = edd_software_licensing()->get_license( $license_id );
+	if ( ! $license ) {
+		return $can_renew;
+	}
+
+	$download_id_not_allowed = 123; // Change this to the ID of your download
+	if ( $license->download_id == $download_id_not_allowed ) {
+		$can_renew = false;
+	}
+
+	return $can_renew;
+}
+add_filter( 'edd_sl_can_extend_license', 'ag_edd_sl_can_renew', 10, 2 );
+add_filter( 'edd_sl_can_renew_license', 'ag_edd_sl_can_renew', 10, 2 );
