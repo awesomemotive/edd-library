@@ -19,10 +19,9 @@ category: auto-register
 function custom_edd_auto_register_login_link( $default_email_body ) {
 
 	// replace http://yoursite.com/sign-in with the URL you want to send users to
-	$login = wp_login_url();
 
 	$default_email_body = str_replace(
-		$login,
+		wp_login_url(),
 		'http://yoursite.com/sign-in',
 		$default_email_body
 	);
