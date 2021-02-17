@@ -12,19 +12,20 @@ category: auto-register
  * Description: Creates a custom email template for EDD emails.
  * Author: Easy Digital Downloads
  * Author URI: https://easydigitaldownloads.com/
- * Version: 1.0
+ * Version: 1.0.1
  */
 
 // replace the default WordPress login link in Auto Register email
-function custom_edd_auto_register_login_link( $login_url ) {
+function custom_edd_auto_register_login_link( $default_email_body ) {
 
-	// replace http://yoursite.com with your real domain where WordPress is installed
 	// replace http://yoursite.com/sign-in with the URL you want to send users to
-	$login_url = str_replace(
-		'http://yoursite.com/wp-login.php',
+
+	$default_email_body = str_replace(
+		wp_login_url(),
 		'http://yoursite.com/sign-in',
-		$login_url
+		$default_email_body
 	);
-	return $login_url;
+
+	return $default_email_body;
 }
 add_filter( 'edd_auto_register_email_body', 'custom_edd_auto_register_login_link' );
