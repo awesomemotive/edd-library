@@ -1,0 +1,25 @@
+---
+layout: snippet
+title: Change Registration Email Login URL
+description: Modifies the login URL sent to new users via email.
+collection: misc
+---
+
+<?php
+/*
+ * Plugin Name: Easy Digital Downloads - Change Registration Login URL
+ * Description: Modifies the login URL sent to new users via email.
+ * Author: Easy Digital Downloads
+ * Author URI: https://easydigitaldownloads.com/
+ * Version: 1.0
+ */
+
+add_filter( 'edd_user_registration_email_login_url', 'eddcustom_modify_user_login_url' );
+/**
+ * Modifies the login URL for the default user registration email.
+ *
+ * @return string
+ */
+function eddcustom_modify_user_login_url() {
+	return 'https://www.google.com/login';
+}
