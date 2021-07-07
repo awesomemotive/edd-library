@@ -15,3 +15,12 @@ collection: emails
  */
 
 remove_action( 'edd_insert_user', 'edd_new_user_notification', 10, 2 );
+
+/*
+ * If you'd like to enable the default email WordPress core sends, un-comment
+ * the following block of code:
+ */
+
+// add_action( 'edd_insert_user', function ( $user_id, $user_data ) {
+// 	wp_new_user_notification( $user_id, null, 'user' );
+// }, 10, 2 );
