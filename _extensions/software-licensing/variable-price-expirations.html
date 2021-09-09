@@ -15,28 +15,43 @@ category: software-licensing
  * Version: 1.1
  */
 
-function pw_edd_sl_license_length( $expiration, $payment_id, $download_id, $license_id ) {
+ /**
+  * Below are two different filters: one to modify the unit (months, years, or days), and another
+  * to modify the length. They are used together to build a full billing cycle for that price ID.
+  * So if you enter "months" for price ID 1 in the first filter, and "6" for price ID 1 in the second
+  * filter, you get a duration of "6 months".
+  */
 
-	$price_id = edd_software_licensing()->get_price_id( $license_id );
-
-	if( $price_id !== false ) {
-
-		switch( $price_id ) {
-
-			case 1:
-				$expiration = '+10 years';
-				break;
-			case 2:
-				$expiration = '+2 years';
-				break;
-			case 3:
-				$expiration = '+1 year';
-				break;
-		}
-
+add_filter( 'edd_sl_download_expiration_unit', function( $unit, $download_id, $price_id ) {
+	if ( ! is_numeric( $price_id ) ) {
+		return $unit;
 	}
 
-	return $expiration;
+	switch( $price_id ) {
+		case 1 :
+			$unit = 'months';
+			break;
+		case 2 :
+			$unit = 'years';
+			break;
+	}
 
-}
-add_filter( 'edd_sl_license_exp_length', 'pw_edd_sl_license_length', 10, 4 );
+	return $unit;
+}, 10, 3 );
+
+add_filter( 'edd_sl_download_expiration_length', function( $length, $download_id, $price_id ) {
+	if ( ! is_numeric( $price_id ) ) {
+		return $length;
+	}
+
+	switch( $price_id ) {
+		case 1 :
+			$length = 6;
+			break;
+		case 2 :
+			$length = 1;
+			break;
+	}
+
+	return $length;
+}, 10, 3 );
