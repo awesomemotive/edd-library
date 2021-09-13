@@ -12,31 +12,56 @@ category: software-licensing
  * Description: Set the expiration time for licenses per price option
  * Author: Pippin Williamson
  * Author URI: https://easydigitaldownloads.com/
- * Version: 1.1
+ * Version: 1.2
  */
 
-function pw_edd_sl_license_length( $expiration, $payment_id, $download_id, $license_id ) {
+ /**
+  * Below are two different filters: one to modify the unit (months, years, or days), and another
+  * to modify the length. They are used together to build a full billing cycle for that price ID.
+  * So if you enter "months" for price ID 1 in the first filter, and "6" for price ID 1 in the second
+  * filter, you get a duration of "6 months".
+  */
 
-	$price_id = edd_software_licensing()->get_price_id( $license_id );
+add_filter( 'edd_sl_download_expiration_unit', function( $unit, $download_id, $price_id ) {
+    $your_download_id = 123; // Change this to your download ID.
+    if ( (int) $your_download_id !== (int) $download_id ) {
+        return $unit;
+    }
 
-	if( $price_id !== false ) {
-
-		switch( $price_id ) {
-
-			case 1:
-				$expiration = '+10 years';
-				break;
-			case 2:
-				$expiration = '+2 years';
-				break;
-			case 3:
-				$expiration = '+1 year';
-				break;
-		}
-
+	if ( ! is_numeric( $price_id ) ) {
+		return $unit;
 	}
 
-	return $expiration;
+	switch( $price_id ) {
+		case 1 :
+			$unit = 'months';
+			break;
+		case 2 :
+			$unit = 'years';
+			break;
+	}
 
-}
-add_filter( 'edd_sl_license_exp_length', 'pw_edd_sl_license_length', 10, 4 );
+	return $unit;
+}, 10, 3 );
+
+add_filter( 'edd_sl_download_expiration_length', function( $length, $download_id, $price_id ) {
+    $your_download_id = 123; // Change this to your download ID.
+    if ( (int) $your_download_id !== (int) $download_id ) {
+        return $length;
+    }
+
+	if ( ! is_numeric( $price_id ) ) {
+		return $length;
+	}
+
+	switch( $price_id ) {
+		case 1 :
+			$length = 6;
+			break;
+		case 2 :
+			$length = 1;
+			break;
+	}
+
+	return $length;
+}, 10, 3 );
