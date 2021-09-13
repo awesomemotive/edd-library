@@ -23,6 +23,11 @@ category: software-licensing
   */
 
 add_filter( 'edd_sl_download_expiration_unit', function( $unit, $download_id, $price_id ) {
+    $your_download_id = 123; // Change this to your download ID.
+    if ( (int) $your_download_id !== (int) $download_id ) {
+        return $unit;
+    }
+
 	if ( ! is_numeric( $price_id ) ) {
 		return $unit;
 	}
@@ -40,6 +45,11 @@ add_filter( 'edd_sl_download_expiration_unit', function( $unit, $download_id, $p
 }, 10, 3 );
 
 add_filter( 'edd_sl_download_expiration_length', function( $length, $download_id, $price_id ) {
+    $your_download_id = 123; // Change this to your download ID.
+    if ( (int) $your_download_id !== (int) $download_id ) {
+        return $unit;
+    }
+
 	if ( ! is_numeric( $price_id ) ) {
 		return $length;
 	}
