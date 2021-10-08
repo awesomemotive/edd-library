@@ -9,25 +9,25 @@ collection: checkout
 /*
  * Plugin Name: Easy Digital Downloads - Disable PayPal for Multi-Item Checkout
  * Description: Disables the PayPal gateway when the cart contains multiple items. PayPal disabled the ability to purchase multiple subscriptions in a single purchase.
- * Author: Sandhills Development
+ * Author: Easy Digital Downloads
  * Author URI: https://easydigitaldownloads.com/
- * Version: 1.0
+ * Version: 1.1
  */
-
 function pw_edd_disable_paypal_on_multi_item_checkout( $gateways ) {
-	
-	if( edd_is_checkout() && count( edd_get_cart_contents() ) > 1 ) {
 
-		if( ! empty( $gateways['paypal'] ) ) {
-			unset( $gateways['paypal'] );
-		}
-		if( ! empty( $gateways['paypalexpress'] ) ) {
-			unset( $gateways['paypalexpress'] );
-		}
-		if( ! empty( $gateways['paypalpro'] ) ) {
-			unset( $gateways['paypalpro'] );
-		}
+	if ( edd_is_checkout() && count( edd_get_cart_contents() ) > 1 ) {
+		$paypal_gateways = array(
+			'paypal',
+			'paypalexpress',
+			'paypalpro',
+			'paypal_commerce',
+		);
 
+		foreach ( $paypal_gateways as $paypal ) {
+			if ( ! empty( $gateways[ $paypal ] ) ) {
+				unset( $gateways[ $paypal ] );
+			}
+		}
 	}
 
 	return $gateways;
