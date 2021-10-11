@@ -15,7 +15,9 @@ collection: checkout
  */
 function pw_edd_disable_paypal_on_multi_item_checkout( $gateways ) {
 
-	if ( edd_is_checkout() && count( edd_get_cart_contents() ) > 1 ) {
+	global $wp_query;
+
+	if ( ! empty( $wp_query ) && edd_is_checkout() && count( edd_get_cart_contents() ) > 1 ) {
 		$paypal_gateways = array(
 			'paypal',
 			'paypalexpress',
