@@ -13,14 +13,11 @@ collection: misc
  * Author URI: https://easydigitaldownloads.com/
  * Version: 2.0
  */
-function eddwp_force_login_for_download( $has_access, $payment, $args ) {
-	if(  ! is_user_logged_in() ) {
-		ob_end_clean();
+function eddwp_force_login_for_download( $download_id, $email, $payment, $args ) {
+	if (  ! is_user_logged_in() ) {
 		$login_url = wp_login_url( trailingslashit( home_url() ) . '?' . $_SERVER['QUERY_STRING'] );
 		$message = sprintf( 'You must be logged in to download files. <a href="%s">Login here</a>.', $login_url );
 		wp_die( $message, 'Error' );
 	}
-
-	return $has_access;
 }
-add_filter( 'edd_file_download_has_access', 'eddwp_force_login_for_download', 10, 3 );
+add_action( 'edd_process_verified_download', 'eddwp_force_login_for_download', 10, 4 );
