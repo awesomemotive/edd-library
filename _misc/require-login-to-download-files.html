@@ -7,32 +7,20 @@ collection: misc
 
 <?php
 /*
- * Plugin Name: Easy Digital Downloads - Force Login
+ * Snippet Name: Easy Digital Downloads - Force Login to Download
  * Description: Force users to be logged-in to download purchased files through Easy Digital Downloads
- * Author: Pippin Williamson
+ * Author: Easy Digital Downloads
  * Author URI: https://easydigitaldownloads.com/
- * Version: 1.0
+ * Version: 2.0
  */
-
-class EDD_Force_Login {
-
-	function __construct() {
-		add_action( 'plugins_loaded', array( $this, 'load' ) );
+function eddwp_force_login_for_download( $has_access, $payment, $args ) {
+	if(  ! is_user_logged_in() ) {
+		ob_end_clean();
+		$login_url = wp_login_url( trailingslashit( home_url() ) . '?' . $_SERVER['QUERY_STRING'] );
+		$message = sprintf( 'You must be logged in to download files. <a href="%s">Login here</a>.', $login_url );
+		wp_die( $message, 'Error' );
 	}
 
-	public function load() {
-		add_action( 'edd_process_verified_download', array( $this, 'force_login' ), 10, 2 );
-	}
-
-	public function force_login( $download, $email ) {
-		
-		if(  ! is_user_logged_in() ) {
-			$login_url = wp_login_url( trailingslashit( home_url() ) . '?' . $_SERVER['QUERY_STRING'] );
-			$message = sprintf( 'You must be logged in to download files. <a href="%s">Login here</a>.', $login_url );
-			wp_die( $message, 'Error' );
-		}
-
-	}
-
+	return $has_access;
 }
-$GLOBALS['edd_force_login'] = new EDD_Force_Login();
+add_filter( 'edd_file_download_has_access', 'eddwp_force_login_for_download', 10, 3 );
